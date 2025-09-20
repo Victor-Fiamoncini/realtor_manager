@@ -1,43 +1,43 @@
 import {
-  Wifi,
-  Waves,
-  Dumbbell,
-  Car,
-  PawPrint,
-  Tv,
-  Thermometer,
-  Cigarette,
-  Cable,
-  Maximize,
   Bath,
+  Building,
+  Bus,
+  Cable,
+  Car,
+  Castle,
+  Cigarette,
+  Dumbbell,
+  Hammer,
+  Home,
+  LucideIcon,
+  Maximize,
+  Mountain,
+  PawPrint,
   Phone,
   Sprout,
-  Hammer,
-  Bus,
-  Mountain,
-  VolumeX,
-  Home,
-  Warehouse,
-  Building,
-  Castle,
+  Thermometer,
   Trees,
-  LucideIcon,
-} from "lucide-react";
+  Tv,
+  VolumeX,
+  Warehouse,
+  Waves,
+  Wifi,
+} from 'lucide-react'
 
 export enum AmenityEnum {
-  WasherDryer = "WasherDryer",
-  AirConditioning = "AirConditioning",
-  Dishwasher = "Dishwasher",
-  HighSpeedInternet = "HighSpeedInternet",
-  HardwoodFloors = "HardwoodFloors",
-  WalkInClosets = "WalkInClosets",
-  Microwave = "Microwave",
-  Refrigerator = "Refrigerator",
-  Pool = "Pool",
-  Gym = "Gym",
-  Parking = "Parking",
-  PetsAllowed = "PetsAllowed",
-  WiFi = "WiFi",
+  WasherDryer = 'WasherDryer',
+  AirConditioning = 'AirConditioning',
+  Dishwasher = 'Dishwasher',
+  HighSpeedInternet = 'HighSpeedInternet',
+  HardwoodFloors = 'HardwoodFloors',
+  WalkInClosets = 'WalkInClosets',
+  Microwave = 'Microwave',
+  Refrigerator = 'Refrigerator',
+  Pool = 'Pool',
+  Gym = 'Gym',
+  Parking = 'Parking',
+  PetsAllowed = 'PetsAllowed',
+  WiFi = 'WiFi',
 }
 
 export const AmenityIcons: Record<AmenityEnum, LucideIcon> = {
@@ -54,24 +54,24 @@ export const AmenityIcons: Record<AmenityEnum, LucideIcon> = {
   Parking: Car,
   PetsAllowed: PawPrint,
   WiFi: Wifi,
-};
+}
 
 export enum HighlightEnum {
-  HighSpeedInternetAccess = "HighSpeedInternetAccess",
-  WasherDryer = "WasherDryer",
-  AirConditioning = "AirConditioning",
-  Heating = "Heating",
-  SmokeFree = "SmokeFree",
-  CableReady = "CableReady",
-  SatelliteTV = "SatelliteTV",
-  DoubleVanities = "DoubleVanities",
-  TubShower = "TubShower",
-  Intercom = "Intercom",
-  SprinklerSystem = "SprinklerSystem",
-  RecentlyRenovated = "RecentlyRenovated",
-  CloseToTransit = "CloseToTransit",
-  GreatView = "GreatView",
-  QuietNeighborhood = "QuietNeighborhood",
+  HighSpeedInternetAccess = 'HighSpeedInternetAccess',
+  WasherDryer = 'WasherDryer',
+  AirConditioning = 'AirConditioning',
+  Heating = 'Heating',
+  SmokeFree = 'SmokeFree',
+  CableReady = 'CableReady',
+  SatelliteTV = 'SatelliteTV',
+  DoubleVanities = 'DoubleVanities',
+  TubShower = 'TubShower',
+  Intercom = 'Intercom',
+  SprinklerSystem = 'SprinklerSystem',
+  RecentlyRenovated = 'RecentlyRenovated',
+  CloseToTransit = 'CloseToTransit',
+  GreatView = 'GreatView',
+  QuietNeighborhood = 'QuietNeighborhood',
 }
 
 export const HighlightIcons: Record<HighlightEnum, LucideIcon> = {
@@ -90,15 +90,15 @@ export const HighlightIcons: Record<HighlightEnum, LucideIcon> = {
   CloseToTransit: Bus,
   GreatView: Mountain,
   QuietNeighborhood: VolumeX,
-};
+}
 
 export enum PropertyTypeEnum {
-  Rooms = "Rooms",
-  Tinyhouse = "Tinyhouse",
-  Apartment = "Apartment",
-  Villa = "Villa",
-  Townhouse = "Townhouse",
-  Cottage = "Cottage",
+  Rooms = 'Rooms',
+  Tinyhouse = 'Tinyhouse',
+  Apartment = 'Apartment',
+  Villa = 'Villa',
+  Townhouse = 'Townhouse',
+  Cottage = 'Cottage',
 }
 
 export const PropertyTypeIcons: Record<PropertyTypeEnum, LucideIcon> = {
@@ -108,29 +108,29 @@ export const PropertyTypeIcons: Record<PropertyTypeEnum, LucideIcon> = {
   Villa: Castle,
   Townhouse: Home,
   Cottage: Trees,
-};
+}
 
 // Add this constant at the end of the file
-export const NAVBAR_HEIGHT = 52; // in pixels
+export const NAVBAR_HEIGHT = 52 // in pixels
 
 // Test users for development
 export const testUsers = {
   tenant: {
-    username: "Carol White",
-    userId: "us-east-2:76543210-90ab-cdef-1234-567890abcdef",
+    username: 'Carol White',
+    userId: 'us-east-2:76543210-90ab-cdef-1234-567890abcdef',
     signInDetails: {
-      loginId: "carol.white@example.com",
-      authFlowType: "USER_SRP_AUTH",
+      loginId: 'carol.white@example.com',
+      authFlowType: 'USER_SRP_AUTH',
     },
   },
-  tenantRole: "tenant",
+  tenantRole: 'tenant',
   manager: {
-    username: "John Smith",
-    userId: "us-east-2:12345678-90ab-cdef-1234-567890abcdef",
+    username: 'John Smith',
+    userId: 'us-east-2:12345678-90ab-cdef-1234-567890abcdef',
     signInDetails: {
-      loginId: "john.smith@example.com",
-      authFlowType: "USER_SRP_AUTH",
+      loginId: 'john.smith@example.com',
+      authFlowType: 'USER_SRP_AUTH',
     },
   },
-  managerRole: "manager",
-};
+  managerRole: 'manager',
+}

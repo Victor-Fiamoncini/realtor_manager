@@ -137,7 +137,6 @@ body,
   @apply text-xs text-primary-500 font-normal;
 }
 
-/* scrollbar styling */
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -164,17 +163,14 @@ body,
   }
 }
 
-/* Amplify UI Overrides */
 [data-amplify-authenticator] {
   --amplify-components-button-primary-background-color: var(--primary);
-  --amplify-components-button-primary-hover-background-color: hsl(
-    var(--primary) / 0.9
-  );
+  --amplify-components-button-primary-hover-background-color: hsl(var(--primary) / 0.9);
   --amplify-components-button-border-radius: var(--radius);
   --amplify-components-fieldcontrol-border-radius: var(--radius);
 }
 
-[data-amplify-authenticator][data-variation="default"] {
+[data-amplify-authenticator][data-variation='default'] {
   height: 100%;
   padding: 2rem !important;
 }
@@ -243,7 +239,6 @@ body,
   color: #ff0000;
 }
 
-/* Sonner Toast Styles */
-[data-close-button="true"] {
+[data-close-button='true'] {
   @apply bg-background border-border text-foreground hover:bg-muted;
 }
