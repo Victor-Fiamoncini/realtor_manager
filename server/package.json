@@ -1,0 +1,13 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "private": true,
+  "author": {
+    "name": "Victor Fiamoncini",
+    "email": "victor.fiamoncini@gmail.com"
+  },
+  "scripts": {},
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
+}

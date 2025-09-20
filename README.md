@@ -1,6 +1,4 @@
-# Realtor Manager 🐍
-
-Realtor management web site - Built with Python/Django
+# Realtor Manager
 
 ----------
 Released in 2019. This project is under the MIT license.
