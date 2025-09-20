@@ -7,7 +7,7 @@ const LandingLayout: React.FC<PropsWithChildren> = ({ children }) => (
   <div className="h-full">
     <Navbar />
 
-    <main className="h-full flex flex-col w-full" style={{ paddingTop: `${NAVBAR_HEIGHT}px` }}>
+    <main className="flex h-full w-full flex-col" style={{ paddingTop: `${NAVBAR_HEIGHT}px` }}>
       {children}
     </main>
   </div>

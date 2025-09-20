@@ -12,7 +12,7 @@ html,
 body,
 #root,
 .app {
-  @apply w-full h-full text-sm bg-white dark:bg-black;
+  @apply h-full w-full bg-white text-sm dark:bg-black;
 }
 
 @layer base {
@@ -79,11 +79,11 @@ body,
 }
 
 .dashboard-container {
-  @apply pt-8 pb-5 px-8;
+  @apply px-8 pb-5 pt-8;
 }
 
 .mapboxgl-popup-content {
-  @apply !bg-primary-700 !rounded-lg !py-2 !px-3;
+  @apply !rounded-lg !bg-primary-700 !px-3 !py-2;
 }
 
 .mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
@@ -103,11 +103,11 @@ body,
 }
 
 .marker-popup {
-  @apply bg-primary-700 text-white p-0 m-0 !flex justify-between items-center gap-3;
+  @apply m-0 !flex items-center justify-between gap-3 bg-primary-700 p-0 text-white;
 }
 
 .marker-popup-image {
-  @apply w-10 h-10 object-cover bg-white rounded-lg;
+  @apply h-10 w-10 rounded-lg bg-white object-cover;
 }
 
 .marker-popup-price {
@@ -115,11 +115,11 @@ body,
 }
 
 .marker-popup-title {
-  @apply hover:underline hover:text-blue-300 cursor-pointer focus:outline-none;
+  @apply cursor-pointer hover:text-blue-300 hover:underline focus:outline-none;
 }
 
 .marker-popup-price-unit {
-  @apply text-xs text-primary-500 font-normal;
+  @apply text-xs font-normal text-primary-500;
 }
 
 ::-webkit-scrollbar {
@@ -160,7 +160,7 @@ body,
 }
 
 [data-amplify-authenticator] [data-amplify-router] {
-  @apply !rounded-none !shadow-none !max-w-96;
+  @apply !max-w-96 !rounded-none !shadow-none;
 
   margin: 0 auto;
 }
@@ -181,7 +181,7 @@ body,
 }
 
 [data-amplify-authenticator] .amplify-button--primary {
-  @apply w-full h-11 mt-4 font-medium text-sm;
+  @apply mt-4 h-11 w-full text-sm font-medium;
 
   background-color: hsl(var(--primary)) !important;
   color: hsl(var(--primary-foreground)) !important;
@@ -222,5 +222,5 @@ body,
 }
 
 [data-close-button='true'] {
-  @apply bg-background border-border text-foreground hover:bg-muted;
+  @apply border-border bg-background text-foreground hover:bg-muted;
 }

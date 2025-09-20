@@ -2,7 +2,7 @@ import '@/app/globals.css'
 
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
 
 import Providers from '@/app/providers'
 
@@ -21,12 +21,12 @@ export const metadata: Metadata = {
   description: 'Manage your real estate efficiently',
 }
 
-export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
-  return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Providers>{children}</Providers>
-      </body>
-    </html>
-  )
-}
+const RootLayout: React.FC<Readonly<PropsWithChildren>> = ({ children }) => (
+  <html lang="en">
+    <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <Providers>{children}</Providers>
+    </body>
+  </html>
+)
+
+export default RootLayout
