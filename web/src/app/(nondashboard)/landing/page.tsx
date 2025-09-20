@@ -1,5 +1,11 @@
+import HeroSection from './hero-section'
+
 const LandingPage = () => {
-  return <div>Landing Page</div>
+  return (
+    <div>
+      <HeroSection />
+    </div>
+  )
 }
 
 export default LandingPage

@@ -4,10 +4,12 @@ import Navbar from '@/components/navbar'
 import { NAVBAR_HEIGHT } from '@/lib/constants'
 
 const LandingLayout: React.FC<PropsWithChildren> = ({ children }) => (
-  <div>
+  <div className="h-full">
     <Navbar />
 
-    <main className={`h-full flex flex-col w-full pt-[${NAVBAR_HEIGHT}px]`}>{children}</main>
+    <main className="h-full flex flex-col w-full" style={{ paddingTop: `${NAVBAR_HEIGHT}px` }}>
+      {children}
+    </main>
   </div>
 )
 
