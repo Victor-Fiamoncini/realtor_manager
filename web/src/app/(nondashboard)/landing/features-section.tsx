@@ -37,7 +37,7 @@ const FeaturesSection = () => (
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:gap-12 xl:gap-16">
         {[0, 1, 2].map((index) => (
           <motion.div key={index} variants={itemVariants}>
-            <FeatureCard
+            <Card
               image={`/landing-search${3 - index}.png`}
               title={
                 [
@@ -65,14 +65,14 @@ const FeaturesSection = () => (
   </motion.section>
 )
 
-type FeatureCardProps = {
+type CardProps = {
   image: string
   title: string
   description: string
   link: { text: string; href: string }
 }
 
-const FeatureCard: React.FC<FeatureCardProps> = ({ image, title, description, link }) => (
+const Card: React.FC<CardProps> = ({ image, title, description, link }) => (
   <div className="text-center">
     <div className="mb-4 flex h-48 items-center justify-center rounded-lg p-4">
       <Image className="h-full w-full object-contain" src={image} alt={title} width="400" height="400" />
