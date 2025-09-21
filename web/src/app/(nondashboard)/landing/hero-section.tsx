@@ -27,11 +27,11 @@ const HeroSection = () => (
       <div className="mx-auto max-w-4xl px-16 sm:px-12">
         <h1 className="mb-4 text-5xl font-bold text-white">Welcome to Realtor Manager</h1>
 
-        <p className="mb-8 text-3xl text-white">Find your dream home with our advanced search tools</p>
+        <p className="mb-8 text-xl text-white">Find your dream home with our advanced search tools</p>
 
         <div className="flex justify-center">
           <Input
-            className="w-full max-w-lg rounded-none rounded-l-xl border-none bg-white px-6 py-8 !text-lg"
+            className="h-12 w-full max-w-lg rounded-none rounded-l-xl border-none bg-white"
             type="text"
             value=""
             placeholder="Search by city, neighborhood or address"
@@ -39,7 +39,7 @@ const HeroSection = () => (
           />
 
           <Button
-            className="rounded-none rounded-r-xl border-none bg-secondary-500 px-6 py-8 text-lg text-white hover:bg-secondary-600"
+            className="h-12 rounded-none rounded-r-xl border-none bg-secondary-500 text-white hover:bg-secondary-600"
             title="Search"
             onClick={() => {}}
           >

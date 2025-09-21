@@ -73,7 +73,7 @@ type CardProps = {
 }
 
 const Card: React.FC<CardProps> = ({ image, title, description, link }) => (
-  <div className="text-center">
+  <div className="flex h-full flex-col items-center justify-between text-center">
     <div className="mb-4 flex h-48 items-center justify-center rounded-lg p-4">
       <Image className="h-full w-full object-contain" src={image} alt={title} width="400" height="400" />
     </div>
