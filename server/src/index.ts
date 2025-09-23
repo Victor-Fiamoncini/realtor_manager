@@ -7,7 +7,7 @@ import helmet from 'helmet'
 const main = async () => {
   dotenv.config()
 
-  const PORT = process.env.PORT || 3000
+  const apiPort = process.env.API_PORT
 
   const app = express()
 
@@ -22,8 +22,8 @@ const main = async () => {
     res.send('Hello, World!')
   })
 
-  app.listen(PORT, () => {
-    console.log(`🏘️ Realtor Manager server is running on http://localhost:${PORT}`)
+  app.listen(apiPort, () => {
+    console.log(`🏘️ Realtor Manager server is running on http://localhost:${apiPort}`)
   })
 }
 
