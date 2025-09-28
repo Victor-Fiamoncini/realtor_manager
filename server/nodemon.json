@@ -1,6 +1,6 @@
 {
   "watch": ["src"],
-  "ignore": ["src/**/*.spec.ts", "src/**/*.test.ts", "dist"],
-  "ext": "ts,json",
-  "exec": "npm run start"
+  "ignore": ["dist", "src/**/*.spec.ts", "src/**/*.test.ts"],
+  "ext": "json,ts",
+  "exec": "ts-node src/main/server/index.ts"
 }
