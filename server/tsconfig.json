@@ -5,12 +5,12 @@
     "target": "ES2023",
     "rootDir": "src",
     "outDir": "dist",
-    "esModuleInterop": true,
     "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "removeComments": true,
     "allowJs": false
   },
-  "include": ["src/**/*", "src/data/**/*.json", "prisma/**/*"],
+  "include": ["prisma/**/*", "src/**/*", "src/data/**/*.json"],
   "exclude": ["node_modules"]
 }
