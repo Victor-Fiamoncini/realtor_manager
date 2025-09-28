@@ -1,5 +1,5 @@
 ### Global Variables
-@apiBaseUrl = http://127.0.0.1:3000
+@apiBaseUrl = http://127.0.0.1:3001
 
 ### Health Check
-GET {{{{apiBaseUrl}}}}/health HTTP/1.1
+GET {{apiBaseUrl}}/health HTTP/1.1
