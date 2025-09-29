@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    hostname: postgres
+    container_name: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: realtor_manager
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d realtor_manager']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - realtor_manager
+
+networks:
+  realtor_manager:
+    driver: bridge
