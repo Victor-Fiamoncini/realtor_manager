@@ -2,7 +2,8 @@ import '@aws-amplify/ui-react/styles.css'
 
 import { Authenticator, Heading, Radio, RadioGroupField, useAuthenticator, View } from '@aws-amplify/ui-react'
 import { Amplify } from 'aws-amplify'
-import React, { PropsWithChildren, use } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import React, { PropsWithChildren, useEffect } from 'react'
 
 Amplify.configure({
   Auth: {
@@ -72,11 +73,11 @@ const components = {
 
     return (
       <View className="mb-6 mt-4">
-        <Heading className="!text-2xl !font-bold" level={3}>
+        <Heading className="!text-center !text-2xl !font-bold" level={3}>
           Welcome to Realtor Manager
         </Heading>
 
-        <p className="mt-2 text-muted-foreground">{subtext}</p>
+        <p className="mt-2 text-center text-muted-foreground">{subtext}</p>
       </View>
     )
   },
@@ -145,9 +146,25 @@ const components = {
 export default function AuthProvider({ children }: PropsWithChildren) {
   const { user } = useAuthenticator((context) => [context.user])
 
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const isAuthPage = pathname.match(/^\/(signin|signup)$/)
+  const isDashboardPage = pathname.startsWith('/managers') || pathname.startsWith('/tenants')
+
+  useEffect(() => {
+    if (user && isAuthPage) router.push('/')
+  }, [isAuthPage, router, user])
+
+  if (!isAuthPage && !isDashboardPage) return children
+
   return (
     <div className="h-full">
-      <Authenticator components={components} formFields={formFields}>
+      <Authenticator
+        initialState={pathname.includes('signup') ? 'signUp' : 'signIn'}
+        components={components}
+        formFields={formFields}
+      >
         {() => <>{children}</>}
       </Authenticator>
     </div>
