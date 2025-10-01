@@ -148,19 +148,12 @@ body,
   }
 }
 
-[data-amplify-authenticator] {
-  --amplify-components-button-primary-background-color: var(--primary);
-  --amplify-components-button-primary-hover-background-color: hsl(var(--primary) / 0.9);
-  --amplify-components-button-border-radius: var(--radius);
-  --amplify-components-fieldcontrol-border-radius: var(--radius);
-}
-
 [data-amplify-authenticator][data-variation='default'] {
   @apply h-full !p-8;
 }
 
 [data-amplify-authenticator] [data-amplify-router] {
-  @apply !max-w-96 !rounded-none !shadow-none;
+  @apply !rounded-none !border-none !shadow-none;
 
   margin: 0 auto;
 }
@@ -181,14 +174,11 @@ body,
 }
 
 [data-amplify-authenticator] .amplify-button--primary {
-  @apply mt-4 h-11 w-full text-sm font-medium;
-
-  background-color: hsl(var(--primary)) !important;
-  color: hsl(var(--primary-foreground)) !important;
+  @apply mt-4 h-11 w-full bg-secondary-500 text-sm font-medium;
 }
 
 [data-amplify-authenticator] .amplify-button--primary:hover {
-  background-color: hsl(var(--primary) / 0.8) !important;
+  @apply bg-secondary-600;
 }
 
 [data-amplify-authenticator] .amplify-field-group__control {
