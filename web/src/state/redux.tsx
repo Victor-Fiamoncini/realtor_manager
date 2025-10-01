@@ -2,7 +2,7 @@
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { useRef } from 'react'
+import { PropsWithChildren, useRef } from 'react'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { Provider } from 'react-redux'
 
@@ -31,7 +31,7 @@ export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
-export default function StoreProvider({ children }: { children: React.ReactNode }) {
+export default function StoreProvider({ children }: PropsWithChildren) {
   const storeRef = useRef<AppStore | null>(null)
 
   if (!storeRef.current) {
