@@ -4,6 +4,14 @@ import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth'
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
+    prepareHeaders: async (headers) => {
+      const sessionResponse = await fetchAuthSession()
+      const { idToken } = sessionResponse.tokens || {}
+
+      if (idToken) headers.set('Authorization', `Bearer ${idToken}`)
+
+      return headers
+    },
   }),
   reducerPath: 'api',
   tagTypes: [],
