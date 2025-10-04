@@ -4,6 +4,7 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 
 import config from './config'
+import { authMiddleware } from '../middleware/auth'
 import healthRoutes from '../routes/health'
 import managerRoutes from '../routes/manager'
 import tenantRoutes from '../routes/tenant'
@@ -18,8 +19,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use(healthRoutes)
-app.use(managerRoutes)
-app.use(tenantRoutes)
+app.use('/managers', authMiddleware(['manager']), managerRoutes)
+app.use('/tenants', authMiddleware(['tenant']), tenantRoutes)
 
 if (!config.port || isNaN(config.port)) {
   throw new Error('PORT env is not set')
