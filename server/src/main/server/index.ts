@@ -4,7 +4,9 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 
 import config from './config'
-import routes from './routes'
+import healthRoutes from '../routes/health'
+import managerRoutes from '../routes/manager'
+import tenantRoutes from '../routes/tenant'
 
 const app = express()
 
@@ -15,7 +17,9 @@ app.use(morgan('common'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-app.use('/', routes)
+app.use(healthRoutes)
+app.use(managerRoutes)
+app.use(tenantRoutes)
 
 if (!config.port || isNaN(config.port)) {
   throw new Error('PORT env is not set')
