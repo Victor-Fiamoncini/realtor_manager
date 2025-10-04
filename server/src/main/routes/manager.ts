@@ -1,13 +1,14 @@
-import { Request, Response, Router } from 'express'
+import { Router } from 'express'
 
+import { createManager, getManager } from '../handlers/manager'
 import { authMiddleware } from '../middleware/auth'
 
 const router = Router()
 
 router.use('/managers', authMiddleware(['manager']))
 
-router.get('/', (_: Request, response: Response) => {
-  return response.status(200).send('Managers')
-})
+router.get('/:cognitoId', getManager)
+
+router.post('/', createManager)
 
 export default router

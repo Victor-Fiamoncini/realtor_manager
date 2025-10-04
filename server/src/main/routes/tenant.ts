@@ -1,13 +1,14 @@
-import { Request, Response, Router } from 'express'
+import { Router } from 'express'
 
+import { createTenant, getTenant } from '../handlers/tenant'
 import { authMiddleware } from '../middleware/auth'
 
 const router = Router()
 
 router.use('/tenants', authMiddleware(['tenant']))
 
-router.get('/', (_: Request, response: Response) => {
-  return response.status(200).send('Tenants')
-})
+router.get('/:cognitoId', getTenant)
+
+router.post('/', createTenant)
 
 export default router
