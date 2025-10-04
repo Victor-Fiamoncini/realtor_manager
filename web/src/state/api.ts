@@ -1,12 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth'
 
+import { createNewUserInDatabase } from '@/lib/utils'
+import { Manager, Tenant } from '@/types/prismaTypes'
+
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
     prepareHeaders: async (headers) => {
-      const sessionResponse = await fetchAuthSession()
-      const { idToken } = sessionResponse.tokens || {}
+      const session = await fetchAuthSession()
+      const { idToken } = session.tokens ?? {}
 
       if (idToken) headers.set('Authorization', `Bearer ${idToken}`)
 
@@ -19,28 +22,39 @@ export const api = createApi({
     getAuthUser: build.query<User, void>({
       queryFn: async (_arg, _queryApi, _extraOptions, fetchWithBQ) => {
         try {
-          const sessionResponse = await fetchAuthSession()
-          const { idToken } = sessionResponse.tokens || {}
+          const session = await fetchAuthSession()
+
+          const { idToken } = session.tokens ?? {}
           const userRole = idToken?.payload['custom:role'] as string
 
-          const userResponse = await getCurrentUser()
-          const userDetailsResponse = await fetchWithBQ(
-            userRole === 'manager' ? `/managers/${userResponse.userId}` : `/tenants/${userResponse.userId}`
-          )
+          const user = await getCurrentUser()
+
+          const endpoint = userRole === 'manager' ? `/managers/${user.userId}` : `/tenants/${user.userId}`
+
+          let userDetailsResponse = await fetchWithBQ(endpoint)
+
+          if (userDetailsResponse.error?.status === 404) {
+            userDetailsResponse = await createNewUserInDatabase(user, userRole, fetchWithBQ)
+          }
 
           return {
             data: {
-              cognitoInfo: { ...userResponse },
+              cognitoInfo: { ...user },
               userInfo: userDetailsResponse.data as Tenant | Manager,
-              userRole: userRole as Tenant | Manager,
+              userRole,
             },
           }
         } catch {
-          return { error: 'Could not fetch user data' }
+          return {
+            error: {
+              status: 'FETCH_ERROR',
+              error: 'Could not authenticate user',
+            },
+          }
         }
       },
     }),
   }),
 })
 
-export const {} = api
+export const { useGetAuthUserQuery } = api
