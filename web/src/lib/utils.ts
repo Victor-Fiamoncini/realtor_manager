@@ -57,7 +57,7 @@ export const withToast = async <T>(mutationFn: Promise<T>, messages: Partial<Mut
   }
 }
 
-export const createNewUserInDatabase = async (user: any, userRole: string, fetchWithBQ: any) => {
+export const createNewUserInDatabase = async (user: any, idToken: any, userRole: string, fetchWithBQ: any) => {
   const createEndpoint = userRole?.toLowerCase() === 'manager' ? '/managers' : '/tenants'
 
   const createUserResponse = await fetchWithBQ({
@@ -66,7 +66,7 @@ export const createNewUserInDatabase = async (user: any, userRole: string, fetch
     body: {
       cognitoId: user.userId,
       name: user.username,
-      email: user.signInDetails?.loginId || '',
+      email: idToken?.payload?.email || '',
       phoneNumber: '',
     },
   })

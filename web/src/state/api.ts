@@ -34,7 +34,7 @@ export const api = createApi({
           let userDetailsResponse = await fetchWithBQ(endpoint)
 
           if (userDetailsResponse.error?.status === 404) {
-            userDetailsResponse = await createNewUserInDatabase(user, userRole, fetchWithBQ)
+            userDetailsResponse = await createNewUserInDatabase(user, idToken, userRole, fetchWithBQ)
           }
 
           return {
