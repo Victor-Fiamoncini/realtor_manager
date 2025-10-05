@@ -174,11 +174,7 @@ body,
 }
 
 [data-amplify-authenticator] .amplify-button--primary {
-  @apply mt-4 h-11 w-full bg-secondary-500 text-sm font-medium;
-}
-
-[data-amplify-authenticator] .amplify-button--primary:hover {
-  @apply bg-secondary-600;
+  @apply mt-4 h-11 w-full text-sm font-medium;
 }
 
 [data-amplify-authenticator] .amplify-field-group__control {
@@ -205,10 +201,6 @@ body,
 
   border-color: hsl(var(--input));
   border-radius: var(--radius);
-}
-
-[data-amplify-authenticator] .amplify-text--error {
-  @apply text-red-600;
 }
 
 [data-close-button='true'] {
