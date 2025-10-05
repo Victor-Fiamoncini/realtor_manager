@@ -5,7 +5,7 @@
 *,
 *::before,
 *::after {
-  @apply box-border;
+  @apply box-border outline-secondary-500;
 }
 
 html,
