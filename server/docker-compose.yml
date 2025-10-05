@@ -15,9 +15,14 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - realtor_manager
 
 networks:
   realtor_manager:
     driver: bridge
+
+volumes:
+  postgres_data:
