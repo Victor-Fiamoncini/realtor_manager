@@ -28,13 +28,13 @@ export default function Navbar() {
   const handleSignOut = async () => {
     await signOut()
 
-    window.location.href = '/signin'
+    window.location.href = '/'
   }
 
   return (
     <header className="fixed left-0 top-0 z-50 w-full shadow-xl" style={{ height: `${NAVBAR_HEIGHT}px` }}>
       <div className="flex h-full w-full items-center justify-between bg-primary-700 px-8 py-3 text-white">
-        {!isDashboardPage && (
+        {isDashboardPage && (
           <div className="md:hidden">
             <SidebarTrigger />
           </div>
