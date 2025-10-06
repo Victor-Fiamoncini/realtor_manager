@@ -2,7 +2,7 @@
 
 import React, { PropsWithChildren } from 'react'
 
-import Navbar from '@/components/navbar'
+import AppNavbar from '@/components/app-navbar'
 import { NAVBAR_HEIGHT } from '@/lib/constants'
 import { useGetAuthUserQuery } from '@/state/api'
 
@@ -11,7 +11,7 @@ const LandingLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <div className="h-full">
-      <Navbar />
+      <AppNavbar />
 
       <main className="flex h-full w-full flex-col" style={{ paddingTop: `${NAVBAR_HEIGHT}px` }}>
         {children}

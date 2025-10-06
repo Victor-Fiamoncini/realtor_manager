@@ -16,7 +16,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar'
 import { NAVBAR_HEIGHT } from '@/lib/constants'
 import { useGetAuthUserQuery } from '@/state/api'
 
-export default function Navbar() {
+const AppNavbar = () => {
   const { data: user } = useGetAuthUserQuery()
 
   const router = useRouter()
@@ -154,3 +154,5 @@ export default function Navbar() {
     </header>
   )
 }
+
+export default AppNavbar

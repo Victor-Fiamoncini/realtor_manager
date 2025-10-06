@@ -2,8 +2,8 @@
 
 import React, { PropsWithChildren } from 'react'
 
+import AppNavbar from '@/components/app-navbar'
 import AppSidebar from '@/components/app-sidebar'
-import Navbar from '@/components/navbar'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { NAVBAR_HEIGHT } from '@/lib/constants'
 import { useGetAuthUserQuery } from '@/state/api'
@@ -16,7 +16,7 @@ const DashboardLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <SidebarProvider>
       <div className="min-h-screen w-full bg-primary-100">
-        <Navbar />
+        <AppNavbar />
 
         <div style={{ marginTop: `${NAVBAR_HEIGHT}px` }}>
           <main className="flex">
