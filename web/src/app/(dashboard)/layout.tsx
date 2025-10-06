@@ -1,6 +1,7 @@
 'use client'
 
-import React, { PropsWithChildren } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import React, { PropsWithChildren, useEffect, useState } from 'react'
 
 import AppNavbar from '@/components/app-navbar'
 import AppSidebar from '@/components/app-sidebar'
@@ -9,7 +10,31 @@ import { NAVBAR_HEIGHT } from '@/lib/constants'
 import { useGetAuthUserQuery } from '@/state/api'
 
 const DashboardLayout: React.FC<PropsWithChildren> = ({ children }) => {
-  const { data: user } = useGetAuthUserQuery()
+  const [isRedirectLoading, setIsRedirectLoading] = useState(true)
+
+  const { data: user, isLoading: isAuthLoading } = useGetAuthUserQuery()
+
+  const router = useRouter()
+  const pathname = usePathname()
+
+  useEffect(() => {
+    if (!user) return
+
+    const userRole = user.userRole?.toLowerCase()
+
+    if (
+      (userRole === 'manager' && pathname.includes('/tenants')) ||
+      (userRole === 'tenant' && pathname.includes('/managers'))
+    ) {
+      router.push(userRole === 'manager' ? '/managers/properties' : '/tenants/favorites', { scroll: false })
+
+      return
+    }
+
+    setIsRedirectLoading(false)
+  }, [pathname, router, user])
+
+  if (isAuthLoading || isRedirectLoading) return 'Loading...'
 
   if (!user?.userRole) return null
 
