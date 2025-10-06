@@ -1,9 +1,11 @@
+import 'module-alias/register'
+
 import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import helmet from 'helmet'
 
-import config from './config'
+import config from '@/main/server/config'
 import { authMiddleware } from '../middleware/auth'
 import healthRoutes from '../routes/health'
 import managerRoutes from '../routes/manager'
