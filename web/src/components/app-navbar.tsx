@@ -40,32 +40,34 @@ const AppNavbar = () => {
           </div>
         )}
 
-        <Link className="cursor-pointer text-xl font-bold hover:text-primary-300" href="/" scroll={false}>
-          Realtor Manager
-        </Link>
+        <div className="flex items-center gap-6">
+          <Link className="cursor-pointer text-xl font-bold hover:text-primary-300" href="/" scroll={false}>
+            Realtor Manager
+          </Link>
 
-        {isDashboardPage && user && (
-          <Button
-            className="bg-primary-50 text-primary-700 hover:bg-secondary-500 hover:text-primary-50 md:ml-4"
-            variant="secondary"
-            onClick={() => router.push(userRole ? '/managers/newproperty' : '/search')}
-            title={userRole === 'manager' ? 'Add New Property' : 'Search Properties'}
-          >
-            {userRole === 'manager' ? (
-              <>
-                <Plus className="h-4 w-4" />
+          {isDashboardPage && user && (
+            <Button
+              className="bg-primary-50 text-primary-700 hover:bg-secondary-500 hover:text-primary-50"
+              variant="secondary"
+              onClick={() => router.push(userRole ? '/managers/newproperty' : '/search')}
+              title={userRole === 'manager' ? 'Add New Property' : 'Search Properties'}
+            >
+              {userRole === 'manager' ? (
+                <>
+                  <Plus className="h-4 w-4" />
 
-                <span className="ml-2 hidden md:block">Add New Property</span>
-              </>
-            ) : (
-              <>
-                <Search className="h-4 w-4" />
+                  <span className="ml-2 hidden pr-2 md:block">Add New Property</span>
+                </>
+              ) : (
+                <>
+                  <Search className="h-4 w-4" />
 
-                <span className="ml-2 hidden md:block">Search Properties</span>
-              </>
-            )}
-          </Button>
-        )}
+                  <span className="ml-2 hidden pr-2 md:block">Search Properties</span>
+                </>
+              )}
+            </Button>
+          )}
+        </div>
 
         <div className="flex items-center gap-5">
           {user && userRole ? (
