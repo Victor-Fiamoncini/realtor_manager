@@ -1,3 +1,5 @@
+'use client'
+
 import { signOut } from 'aws-amplify/auth'
 import { Bell, MessageCircle, Plus, Search } from 'lucide-react'
 import Link from 'next/link'
