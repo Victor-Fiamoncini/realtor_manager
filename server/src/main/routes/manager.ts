@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { createManager, getManager, updateManager } from '../handlers/manager'
+import { createManager, getManager, updateManager } from '@/main/handlers/manager'
 
 const router = Router()
 

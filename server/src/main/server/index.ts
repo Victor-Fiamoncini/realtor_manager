@@ -5,11 +5,11 @@ import cors from 'cors'
 import morgan from 'morgan'
 import helmet from 'helmet'
 
+import { authMiddleware } from '@/main/middleware/auth'
+import healthRoutes from '@/main/routes/health'
+import managerRoutes from '@/main/routes/manager'
+import tenantRoutes from '@/main/routes/tenant'
 import config from '@/main/server/config'
-import { authMiddleware } from '../middleware/auth'
-import healthRoutes from '../routes/health'
-import managerRoutes from '../routes/manager'
-import tenantRoutes from '../routes/tenant'
 
 const app = express()
 

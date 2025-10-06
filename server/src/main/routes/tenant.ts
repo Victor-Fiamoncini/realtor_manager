@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { createTenant, getTenant, updateTenant } from '../handlers/tenant'
+import { createTenant, getTenant, updateTenant } from '@/main/handlers/tenant'
 
 const router = Router()
 
