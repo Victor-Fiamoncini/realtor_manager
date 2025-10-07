@@ -48,18 +48,6 @@ const FooterSection = () => (
 
       <div className="mt-8 flex justify-center space-x-4 text-center text-sm text-gray-500">
         <span>&copy; Realtor Manager. All rights reserved.</span>
-
-        <Link href="/privacy" title="View our privacy policy">
-          Privacy Policy
-        </Link>
-
-        <Link href="/terms" title="View our terms of service">
-          Terms of Service
-        </Link>
-
-        <Link href="/cookies" title="View our cookie policy">
-          Cookie Policy
-        </Link>
       </div>
     </div>
   </footer>

@@ -1,3 +1,5 @@
+'use client'
+
 import '@aws-amplify/ui-react/styles.css'
 
 import { Authenticator, Heading, Radio, RadioGroupField, useAuthenticator, View } from '@aws-amplify/ui-react'
