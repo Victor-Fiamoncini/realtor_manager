@@ -1,7 +1,8 @@
 {
   "name": "web",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
+  "license": "MIT",
   "author": {
     "name": "Victor Fiamoncini",
     "email": "victor.fiamoncini@gmail.com"
