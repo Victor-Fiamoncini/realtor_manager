@@ -1,4 +1,5 @@
 import { Prisma, PrismaClient } from '@prisma/client'
+import { wktToGeoJSON } from '@terraformer/wkt'
 import { Request, Response } from 'express'
 
 const prisma = new PrismaClient()
@@ -133,8 +134,38 @@ export const getProperties = async (request: Request, response: Response) => {
 }
 
 export const getProperty = async (request: Request, response: Response) => {
+  const { id } = request.params
+
   try {
-    return response.status(200).json()
+    const property = await prisma.property.findUnique({
+      where: { id: Number(id) },
+      include: { location: true },
+    })
+
+    if (property) {
+      const coordinates: { coordinates: string }[] = await prisma.$queryRaw`
+        SELECT
+          ST_asText(coordinates) AS coordinates
+        FROM
+          "Location"
+        WHERE
+          id = ${property.location.id}
+      `
+
+      const geoJson = wktToGeoJSON(coordinates[0]?.coordinates || '') as unknown as { coordinates: [number, number] }
+
+      const longitude = geoJson.coordinates[0]
+      const latitude = geoJson.coordinates[1]
+
+      const propertyWithCoordinates = {
+        ...property,
+        location: { ...property.location, coordinates: { longitude, latitude } },
+      }
+
+      return response.status(200).json(propertyWithCoordinates)
+    }
+
+    return response.status(404).json({ message: 'Property not found' })
   } catch {
     return response.status(500).json({ message: 'Error to get property' })
   }
