@@ -1,8 +1,13 @@
-import { Prisma, PrismaClient } from '@prisma/client'
+import { S3Client } from '@aws-sdk/client-s3'
+import { Upload } from '@aws-sdk/lib-storage'
+import { Location, Prisma, PrismaClient } from '@prisma/client'
 import { wktToGeoJSON } from '@terraformer/wkt'
+import axios from 'axios'
 import { Request, Response } from 'express'
 
 const prisma = new PrismaClient()
+
+const s3Client = new S3Client({ region: process.env.AWS_REGION })
 
 export const getProperties = async (request: Request, response: Response) => {
   const {
@@ -172,8 +177,80 @@ export const getProperty = async (request: Request, response: Response) => {
 }
 
 export const createProperty = async (request: Request, response: Response) => {
+  const files = request.files as Express.Multer.File[]
+  const { address, city, state, country, postalCode, managerCognitoId, ...property } = request.body
+
   try {
-    return response.status(200).json()
+    const photoUrls = await Promise.all(
+      files.map(async (file) => {
+        const uploadParams = {
+          Bucket: process.env.S3_BUCKET_NAME!,
+          Key: `properties/${Date.now()}-${file.originalname}`,
+          Body: file.buffer,
+          ContentType: file.mimetype,
+        }
+
+        const uploadResult = await new Upload({ client: s3Client, params: uploadParams }).done()
+
+        return uploadResult.Location
+      })
+    )
+
+    const openStreetMapParams = new URLSearchParams({
+      street: address,
+      city,
+      country,
+      postalcode: postalCode,
+      format: 'json',
+      limit: '1',
+    }).toString()
+
+    const openStreetMapResponse = await axios.get(`https://nominatim.openstreetmap.org/search?${openStreetMapParams}`, {
+      headers: { 'User-Agent': 'RealtorManagerApp (victor.fiamoncnii@gmail.com)' },
+    })
+
+    const [longitude, latitude] =
+      openStreetMapResponse.data[0]?.lon && openStreetMapResponse.data[0]?.lat
+        ? [parseFloat(openStreetMapResponse.data[0]?.lon), parseFloat(openStreetMapResponse.data[0]?.lat)]
+        : [0, 0]
+
+    const [location] = await prisma.$queryRaw<Location[]>`
+      INSERT INTO
+        "Location" (address, city, state, country, "postalCode", coordinates)
+      VALUES
+        (
+          ${address},
+          ${city},
+          ${state},
+          ${country},
+          ${postalCode},
+          ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326)
+        )
+      RETURNING
+        id, address, city, state, country, "postalCode", ST_AsText(coordinates) as coordinates;
+    `
+
+    const newProperty = await prisma.property.create({
+      data: {
+        ...property,
+        photoUrls,
+        locationId: location.id,
+        managerCognitoId,
+        amenities: typeof property.amenities === 'string' ? property.amenities.split(',') : [],
+        highlights: typeof property.highlights === 'string' ? property.highlights.split(',') : [],
+        isPetsAllowed: property.isPetsAllowed === 'true',
+        isParkingIncluded: property.isParkingIncluded === 'true',
+        pricePerMonth: parseFloat(property.pricePerMonth),
+        securityDeposit: parseFloat(property.securityDeposit),
+        applicationFee: parseFloat(property.applicationFee),
+        beds: parseInt(property.beds),
+        baths: parseFloat(property.baths),
+        squareFeet: parseInt(property.squareFeet),
+      },
+      include: { location: true, manager: true },
+    })
+
+    return response.status(201).json(newProperty)
   } catch {
     return response.status(500).json({ message: 'Error to create property' })
   }
