@@ -1,6 +1,13 @@
 import { Router } from 'express'
 
-import { createTenant, getCurrentResidences, getTenant, updateTenant } from '@/main/handlers/tenant'
+import {
+  addFavoriteProperty,
+  createTenant,
+  getCurrentResidences,
+  getTenant,
+  removeFavoriteProperty,
+  updateTenant,
+} from '@/main/handlers/tenant'
 
 const router = Router()
 
@@ -11,5 +18,9 @@ router.post('/', createTenant)
 router.put('/:cognitoId', updateTenant)
 
 router.get('/:cognitoId/current-residences', getCurrentResidences)
+
+router.post('/:cognitoId/favorites/:propertyId', addFavoriteProperty)
+
+router.delete('/:cognitoId/favorites/:propertyId', removeFavoriteProperty)
 
 export default router

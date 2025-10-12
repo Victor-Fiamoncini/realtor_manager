@@ -95,3 +95,51 @@ export const getCurrentResidences = async (request: Request, response: Response)
     return response.status(500).json({ message: 'Error to get tenant residences' })
   }
 }
+
+export const addFavoriteProperty = async (request: Request, response: Response) => {
+  const { cognitoId, propertyId } = request.params
+
+  try {
+    const tenant = await prisma.tenant.findUnique({
+      where: { cognitoId },
+      include: { favorites: true },
+    })
+
+    if (!tenant) return response.status(404).json({ message: 'Tenant not found' })
+
+    const propertyIdNumber = Number(propertyId)
+    const existingFavorites = tenant.favorites || []
+
+    if (!existingFavorites.some((favorite) => favorite.id === propertyIdNumber)) {
+      const updatedTenant = await prisma.tenant.update({
+        where: { cognitoId },
+        data: { favorites: { connect: { id: propertyIdNumber } } },
+        include: { favorites: true },
+      })
+
+      return response.status(200).json(updatedTenant)
+    }
+
+    return response.status(409).json({ message: 'Property already added as favorite' })
+  } catch {
+    return response.status(500).json({ message: 'Error to add favorite property' })
+  }
+}
+
+export const removeFavoriteProperty = async (request: Request, response: Response) => {
+  const { cognitoId, propertyId } = request.params
+
+  try {
+    const propertyIdNumber = Number(propertyId)
+
+    const updatedTenant = await prisma.tenant.update({
+      where: { cognitoId },
+      data: { favorites: { disconnect: { id: propertyIdNumber } } },
+      include: { favorites: true },
+    })
+
+    return response.status(200).json(updatedTenant)
+  } catch {
+    return response.status(500).json({ message: 'Error to remove favorite property' })
+  }
+}
