@@ -7,6 +7,7 @@ import helmet from 'helmet'
 
 import { authMiddleware } from '@/main/middleware/auth'
 import healthRoutes from '@/main/routes/health'
+import leaseRoutes from '@/main/routes/lease'
 import managerRoutes from '@/main/routes/manager'
 import propertyRoutes from '@/main/routes/property'
 import tenantRoutes from '@/main/routes/tenant'
@@ -22,6 +23,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use('/health', healthRoutes)
+app.use('/leases', authMiddleware(['manager', 'tenant']), leaseRoutes)
 app.use('/managers', authMiddleware(['manager']), managerRoutes)
 app.use('/tenants', authMiddleware(['tenant']), tenantRoutes)
 app.use('/properties', propertyRoutes)
