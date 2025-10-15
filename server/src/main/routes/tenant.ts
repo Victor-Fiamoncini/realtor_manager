@@ -8,7 +8,7 @@ import {
   removeFavoriteProperty,
   updateTenant,
 } from '@/main/handlers/tenant'
-import { authMiddleware } from '@/main/middleware/auth'
+import authMiddleware from '@/main/middleware/auth'
 
 const router = Router()
 

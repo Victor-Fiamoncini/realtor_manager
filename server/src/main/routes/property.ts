@@ -2,7 +2,7 @@ import { Router } from 'express'
 import multer from 'multer'
 
 import { createProperty, getProperties, getProperty } from '@/main/handlers/property'
-import { authMiddleware } from '@/main/middleware/auth'
+import authMiddleware from '@/main/middleware/auth'
 
 const storage = multer.memoryStorage()
 const upload = multer({ storage })

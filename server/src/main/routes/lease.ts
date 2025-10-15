@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import { getLeasePayments, getLeases } from '@/main/handlers/lease'
-import { authMiddleware } from '@/main/middleware/auth'
+import authMiddleware from '@/main/middleware/auth'
 
 const router = Router()
 

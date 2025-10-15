@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import { createApplication, getApplications, updateApplicationStatus } from '@/main/handlers/application'
-import { authMiddleware } from '@/main/middleware/auth'
+import authMiddleware from '@/main/middleware/auth'
 
 const router = Router()
 

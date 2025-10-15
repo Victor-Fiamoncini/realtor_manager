@@ -1,16 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
-type UserFromToken = {
-  id: string
-  role: string
-}
-
-type DecodedToken = JwtPayload & {
-  sub: string
-  'custom:role'?: string
-}
-
 declare global {
   namespace Express {
     interface Request {
@@ -19,15 +9,25 @@ declare global {
   }
 }
 
-export const authMiddleware = (allowedRules: string[]) => {
+type UserFromToken = {
+  id: string
+  role: string
+}
+
+type DecodedToken = JwtPayload & {
+  sub: string
+  'custom:role': string | null
+}
+
+const middleware = (allowedRules: string[]) => {
   return (request: Request, response: Response, next: NextFunction) => {
-    if (!request.headers?.authorization) return response.status(401).json({ message: 'Unauthorized' })
-
-    const [_, token] = request.headers.authorization.split(' ')
-
-    if (!token) return response.status(401).json({ message: 'Unauthorized' })
-
     try {
+      if (!request.headers?.authorization) return response.status(401).json({ message: 'Unauthorized' })
+
+      const [_, token] = request.headers.authorization.split(' ')
+
+      if (!token) return response.status(401).json({ message: 'Unauthorized' })
+
       const decodedToken = jwt.decode(token) as DecodedToken
       const role = decodedToken['custom:role'] || ''
 
@@ -43,3 +43,5 @@ export const authMiddleware = (allowedRules: string[]) => {
     }
   }
 }
+
+export default middleware

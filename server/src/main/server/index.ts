@@ -5,7 +5,6 @@ import cors from 'cors'
 import morgan from 'morgan'
 import helmet from 'helmet'
 
-import { authMiddleware } from '@/main/middleware/auth'
 import applicationRoutes from '@/main/routes/application'
 import healthRoutes from '@/main/routes/health'
 import leaseRoutes from '@/main/routes/lease'
