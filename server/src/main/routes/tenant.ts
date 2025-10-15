@@ -8,19 +8,20 @@ import {
   removeFavoriteProperty,
   updateTenant,
 } from '@/main/handlers/tenant'
+import { authMiddleware } from '@/main/middleware/auth'
 
 const router = Router()
 
-router.get('/:cognitoId', getTenant)
+router.get('/:cognitoId', authMiddleware(['tenant']), getTenant)
 
-router.post('/', createTenant)
+router.post('/', authMiddleware(['tenant']), createTenant)
 
-router.put('/:cognitoId', updateTenant)
+router.put('/:cognitoId', authMiddleware(['tenant']), updateTenant)
 
-router.get('/:cognitoId/current-residences', getCurrentResidences)
+router.get('/:cognitoId/current-residences', authMiddleware(['tenant']), getCurrentResidences)
 
-router.post('/:cognitoId/favorites/:propertyId', addFavoriteProperty)
+router.post('/:cognitoId/favorites/:propertyId', authMiddleware(['tenant']), addFavoriteProperty)
 
-router.delete('/:cognitoId/favorites/:propertyId', removeFavoriteProperty)
+router.delete('/:cognitoId/favorites/:propertyId', authMiddleware(['tenant']), removeFavoriteProperty)
 
 export default router
