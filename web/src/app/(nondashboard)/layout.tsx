@@ -16,18 +16,16 @@ const LandingLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const pathname = usePathname()
 
   useEffect(() => {
-    if (!user) return
+    if (user) {
+      const userRole = user.userRole?.toLowerCase()
 
-    const userRole = user.userRole?.toLowerCase()
-
-    if (userRole === 'manager' && (pathname.includes('/search') || pathname === '/')) {
-      router.push('/managers/properties', { scroll: false })
-
-      return
+      if ((userRole === 'manager' && pathname.startsWith('/search')) || (userRole === 'manager' && pathname === '/')) {
+        router.push('/managers/properties', { scroll: false })
+      } else {
+        setIsRedirectLoading(false)
+      }
     }
-
-    setIsRedirectLoading(false)
-  }, [pathname, router, user])
+  }, [user, router, pathname])
 
   if (isAuthLoading || isRedirectLoading) return 'Loading...'
 
