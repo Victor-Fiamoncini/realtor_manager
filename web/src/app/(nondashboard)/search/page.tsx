@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import React, { useEffect } from 'react'
 
 import FiltersBar from '@/app/(nondashboard)/search/filters-bar'
+import FiltersFull from '@/app/(nondashboard)/search/filters-full'
 import { NAVBAR_HEIGHT } from '@/lib/constants'
 import { cleanParams } from '@/lib/utils'
 import { setFilters } from '@/state'
@@ -43,7 +44,7 @@ const SearchPage = () => {
             isFiltersFullOpen ? 'visible w-3/12 opacity-100' : 'invisible w-0 opacity-0'
           }`}
         >
-          {/* <FiltersFull /> */}
+          <FiltersFull />
         </div>
 
         {/* <Map /> */}
