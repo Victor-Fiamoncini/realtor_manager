@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 
 import FiltersBar from '@/app/(nondashboard)/search/filters-bar'
 import FiltersFull from '@/app/(nondashboard)/search/filters-full'
+import Map from '@/app/(nondashboard)/search/map'
 import { NAVBAR_HEIGHT } from '@/lib/constants'
 import { cleanParams } from '@/lib/utils'
 import { setFilters } from '@/state'
@@ -32,7 +33,9 @@ const SearchPage = () => {
     const cleanedFilters = cleanParams(initialFilters)
 
     dispatch(setFilters(cleanedFilters))
-  }, [dispatch, searchParams])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="mx-auto flex w-full flex-col px-5" style={{ height: `calc(100vh - ${NAVBAR_HEIGHT}px)` }}>
@@ -47,7 +50,7 @@ const SearchPage = () => {
           <FiltersFull />
         </div>
 
-        {/* <Map /> */}
+        <Map />
 
         <div className="basis-4/12 overflow-y-auto">{/* <Listings /> */}</div>
       </div>
