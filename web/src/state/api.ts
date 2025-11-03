@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth'
 
-import { createNewUserInDatabase } from '@/lib/utils'
-import { Manager, Tenant } from '@/types/prismaTypes'
+import { cleanParams, createNewUserInDatabase, withToast } from '@/lib/utils'
+import { FiltersState } from '@/state'
+import { Manager, Property, Tenant } from '@/types/prismaTypes'
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
@@ -17,7 +18,7 @@ export const api = createApi({
     },
   }),
   reducerPath: 'api',
-  tagTypes: ['Managers', 'Tenants'],
+  tagTypes: ['Managers', 'Properties', 'Tenants'],
   endpoints: (build) => ({
     getAuthUser: build.query<User, void>({
       queryFn: async (_arg, _queryApi, _extraOptions, fetchWithBQ) => {
@@ -54,6 +55,7 @@ export const api = createApi({
         }
       },
     }),
+
     updateTenantSettings: build.mutation<Tenant, { cognitoId: string } & Partial<Tenant>>({
       query: ({ cognitoId, ...updatedTenant }) => ({
         url: `/tenants/${cognitoId}`,
@@ -62,6 +64,7 @@ export const api = createApi({
       }),
       invalidatesTags: (result) => [{ type: 'Tenants', id: result?.id }],
     }),
+
     updateManagerSettings: build.mutation<Manager, { cognitoId: string } & Partial<Manager>>({
       query: ({ cognitoId, ...updatedManager }) => ({
         url: `/managers/${cognitoId}`,
@@ -70,7 +73,41 @@ export const api = createApi({
       }),
       invalidatesTags: (result) => [{ type: 'Managers', id: result?.id }],
     }),
+
+    getProperties: build.query<Property[], Partial<FiltersState> & { favoriteIds?: number[] }>({
+      query: (filters) => {
+        const params = cleanParams({
+          location: filters.location,
+          priceMin: filters.priceRange?.[0],
+          priceMax: filters.priceRange?.[1],
+          beds: filters.beds,
+          baths: filters.baths,
+          propertyType: filters.propertyType,
+          squareFeetMin: filters.squareFeet?.[0],
+          squareFeetMax: filters.squareFeet?.[1],
+          amenities: filters.amenities?.join(','),
+          availableFrom: filters.availableFrom,
+          favoriteIds: filters.favoriteIds?.join(','),
+          latitude: filters.coordinates?.[1],
+          longitude: filters.coordinates?.[0],
+        })
+
+        return { url: 'properties', params }
+      },
+      providesTags: (result) =>
+        result
+          ? [...result.map(({ id }) => ({ type: 'Properties' as const, id })), { type: 'Properties', id: 'LIST' }]
+          : [{ type: 'Properties', id: 'LIST' }],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, { error: 'Failed to fetch properties.' })
+      },
+    }),
   }),
 })
 
-export const { useGetAuthUserQuery, useUpdateTenantSettingsMutation, useUpdateManagerSettingsMutation } = api
+export const {
+  useGetAuthUserQuery,
+  useGetPropertiesQuery,
+  useUpdateTenantSettingsMutation,
+  useUpdateManagerSettingsMutation,
+} = api
