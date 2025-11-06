@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { SidebarTrigger } from '@/components/ui/sidebar'
+import { useIsMobile } from '@/hooks/use-mobile'
 import { NAVBAR_HEIGHT } from '@/lib/constants'
 import { useGetAuthUserQuery } from '@/state/api'
 
@@ -25,14 +26,16 @@ const AppNavbar = () => {
   const router = useRouter()
   const pathname = usePathname()
 
-  const userRole = user?.userRole?.toLowerCase() || null
-  const isDashboardPage = pathname.includes('/managers') || pathname.includes('/tenants')
+  const isMobile = useIsMobile()
 
   const handleSignOut = async () => {
     await signOut()
 
     window.location.href = '/'
   }
+
+  const userRole = user?.userRole?.toLowerCase() || null
+  const isDashboardPage = pathname.includes('/managers') || pathname.includes('/tenants')
 
   return (
     <header className="fixed top-0 left-0 z-50 block w-full shadow-xl" style={{ height: `${NAVBAR_HEIGHT}px` }}>
@@ -47,31 +50,8 @@ const AppNavbar = () => {
           <Link className="flex cursor-pointer items-center gap-4 text-xl font-bold" href="/" scroll={false}>
             <Image src="/logo.png" alt="Realtor Manager Logo" width={40} height={40} />
 
-            <>Realtor Manager</>
+            {isMobile ? 'RM' : 'Realtor Manager'}
           </Link>
-
-          {isDashboardPage && user && (
-            <Button
-              className="bg-secondary text-primary cursor-pointer"
-              variant="secondary"
-              onClick={() => router.push(userRole ? '/managers/newproperty' : '/search')}
-              title={userRole === 'manager' ? 'Add New Property' : 'Search Properties'}
-            >
-              {userRole === 'manager' ? (
-                <>
-                  <Plus className="h-4 w-4" />
-
-                  <span className="hidden pr-1 text-sm md:block">Add New Property</span>
-                </>
-              ) : (
-                <>
-                  <Search className="h-4 w-4" />
-
-                  <span className="hidden pr-1 text-sm md:block">Search Properties</span>
-                </>
-              )}
-            </Button>
-          )}
         </div>
 
         {user && userRole ? (
@@ -97,7 +77,15 @@ const AppNavbar = () => {
                 Dashboard
               </DropdownMenuItem>
 
-              <DropdownMenuSeparator className="bg-primary-200" />
+              <DropdownMenuSeparator />
+
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => router.push(userRole ? '/managers/newproperty' : '/search')}
+                title={userRole === 'manager' ? 'Add New Property' : 'Search Properties'}
+              >
+                {userRole === 'manager' ? 'Add New Property' : 'Search Properties'}
+              </DropdownMenuItem>
 
               <DropdownMenuItem
                 className="cursor-pointer"
