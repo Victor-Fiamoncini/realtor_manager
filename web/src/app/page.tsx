@@ -1,14 +1,7 @@
-import Landing from '@/app/(nondashboard)/landing/page'
-import AppNavbar from '@/components/app-navbar'
+'use client'
 
-const HomePage = () => (
-  <div className="h-full w-full">
-    <AppNavbar />
+import { redirect } from 'next/navigation'
 
-    <main className="flex h-full w-full flex-col">
-      <Landing />
-    </main>
-  </div>
-)
+const RootPage = () => redirect('/landing')
 
-export default HomePage
+export default RootPage
