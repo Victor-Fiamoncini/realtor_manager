@@ -71,14 +71,14 @@ type CardProps = {
 }
 
 const Card = ({ image, title, description }: CardProps) => (
-  <div className="rounded-lg bg-primary-50 px-4 py-12 shadow-lg md:h-72">
-    <div className="mx-auto mb-4 h-10 w-10 rounded-full bg-primary-700 p-[0.6rem]">
+  <div className="bg-secondary rounded-lg px-4 py-12 shadow-sm md:h-72">
+    <div className="bg-primary mx-auto mb-4 h-10 w-10 rounded-full p-[0.6rem]">
       <Image className="h-full w-full" src={image} width={30} height={30} alt={title} />
     </div>
 
-    <h3 className="mt-4 text-xl font-medium text-gray-800">{title}</h3>
+    <h3 className="text-primary mt-4 text-xl font-medium">{title}</h3>
 
-    <p className="mt-2 text-base text-gray-500">{description}</p>
+    <p className="text-primary mt-2 text-base">{description}</p>
   </div>
 )
 
