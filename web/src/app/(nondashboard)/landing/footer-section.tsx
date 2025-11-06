@@ -6,18 +6,16 @@ const FooterSection = () => (
   <footer className="py-16">
     <div className="mx-auto max-w-4xl px-6 sm:px-8">
       <div className="flex flex-col items-center justify-between md:flex-row">
-        <div className="mb-4">
-          <Link className="flex cursor-pointer items-center gap-4 text-xl font-bold" href="/" scroll={false}>
-            <Image
-              className="rounded-md bg-gray-600"
-              src="/logo.png"
-              alt="Realtor Manager Logo"
-              width={40}
-              height={40}
-            />
+        <div className="mb-4 flex items-center gap-4 text-xl font-bold">
+          <Image
+            className="rounded-md bg-gray-600 p-1"
+            src="/logo.png"
+            alt="Realtor Manager Logo"
+            width={40}
+            height={40}
+          />
 
-            <>Realtor Manager</>
-          </Link>
+          <>Realtor Manager</>
         </div>
 
         <nav className="mb-4">
