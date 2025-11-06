@@ -12,15 +12,22 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar'
+import { useIsMobile } from '@/hooks/use-mobile'
 import { NAVBAR_HEIGHT } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 type Props = { userType: 'manager' | 'tenant' }
 
+const SidebarTitle: React.FC<Props> = ({ userType }) => (
+  <h1 className="text-primary text-xl font-bold">{userType === 'manager' ? 'Manager View' : 'Renter View'}</h1>
+)
+
 const AppSidebar: React.FC<Props> = ({ userType }) => {
   const pathname = usePathname()
 
   const { open, toggleSidebar } = useSidebar()
+
+  const isMobile = useIsMobile()
 
   const navLinks =
     userType === 'manager'
@@ -38,44 +45,24 @@ const AppSidebar: React.FC<Props> = ({ userType }) => {
 
   return (
     <Sidebar
-      collapsible="icon"
-      className="fixed left-0 bg-white shadow-lg"
-      style={{
-        top: `${NAVBAR_HEIGHT}px`,
-        height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
-      }}
+      className="shadow-lg"
+      collapsible={isMobile ? 'offcanvas' : 'none'}
+      style={{ top: `${NAVBAR_HEIGHT}px`, height: `calc(100vh - ${NAVBAR_HEIGHT}px)` }}
     >
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <div
-              className={cn(
-                'mb-3 flex min-h-[56px] w-full items-center pt-3',
-                open ? 'justify-between px-6' : 'justify-center'
-              )}
-            >
-              {open ? (
+            <div className="mb-3 flex min-h-14 w-full items-center justify-between px-6 pt-3">
+              {isMobile && open ? (
                 <>
-                  <h1 className="text-xl font-bold text-gray-800">
-                    {userType === 'manager' ? 'Manager View' : 'Renter View'}
-                  </h1>
+                  <SidebarTitle userType={userType} />
 
-                  <button
-                    className="rounded-md p-2 hover:bg-gray-100"
-                    title="Toggle Menu"
-                    onClick={() => toggleSidebar()}
-                  >
+                  <button className="cursor-pointer rounded-md p-2" title="Toggle Menu" onClick={() => toggleSidebar()}>
                     <X className="h-6 w-6 text-gray-600" />
                   </button>
                 </>
               ) : (
-                <button
-                  className="rounded-md p-2 hover:bg-gray-100"
-                  title="Toggle Menu"
-                  onClick={() => toggleSidebar()}
-                >
-                  <Menu className="h-6 w-6 text-gray-600" />
-                </button>
+                <SidebarTitle userType={userType} />
               )}
             </div>
           </SidebarMenuItem>
@@ -92,16 +79,15 @@ const AppSidebar: React.FC<Props> = ({ userType }) => {
                 <SidebarMenuButton
                   className={cn(
                     'flex items-center px-7 py-7',
-                    isActive ? 'bg-gray-100' : 'text-gray-600 hover:bg-gray-100',
-                    open ? 'text-blue-600' : 'ml-[5px]'
+                    isActive ? 'bg-gray-100' : 'text-gray-600 hover:bg-gray-100'
                   )}
                   asChild
                 >
                   <Link className="w-full" href={link.href} title={link.label} scroll={false}>
                     <div className="flex items-center gap-3">
-                      <link.icon className={`h-5 w-5 ${isActive ? 'text-blue-600' : 'text-gray-600'}`} />
+                      <link.icon className={`h-5 w-5 ${isActive ? 'text-blue-700' : 'text-gray-600'}`} />
 
-                      <span className={`font-medium ${isActive ? 'text-blue-600' : 'text-gray-600'}`}>
+                      <span className={`font-medium ${isActive ? 'text-blue-700' : 'text-gray-600'}`}>
                         {link.label}
                       </span>
                     </div>
