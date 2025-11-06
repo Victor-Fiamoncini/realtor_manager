@@ -35,7 +35,7 @@ const AppNavbar = () => {
   }
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full shadow-xl" style={{ height: `${NAVBAR_HEIGHT}px` }}>
+    <header className="fixed top-0 left-0 z-50 block w-full shadow-xl" style={{ height: `${NAVBAR_HEIGHT}px` }}>
       <div className="bg-primary flex h-full w-full items-center justify-between px-8 py-3 text-white">
         {isDashboardPage && (
           <div className="md:hidden">
@@ -74,69 +74,67 @@ const AppNavbar = () => {
           )}
         </div>
 
-        <div className="flex items-center gap-5">
-          {user && userRole ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-2">
-                <Avatar>
-                  <AvatarImage src={user.userInfo?.image} />
+        {user && userRole ? (
+          <DropdownMenu modal={false}>
+            <DropdownMenuTrigger className="flex cursor-pointer items-center gap-2">
+              <Avatar>
+                <AvatarImage src={user.userInfo?.image} />
 
-                  <AvatarFallback className="text-primary">{userRole[0].toUpperCase()}</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
+                <AvatarFallback className="text-primary">{userRole[0].toUpperCase()}</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
 
-              <DropdownMenuContent>
-                <DropdownMenuItem
-                  className="cursor-pointer"
-                  onClick={() =>
-                    router.push(userRole === 'manager' ? '/managers/properties' : '/tenants/favorites', {
-                      scroll: false,
-                    })
-                  }
-                  title="Dashboard"
-                >
-                  Dashboard
-                </DropdownMenuItem>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() =>
+                  router.push(userRole === 'manager' ? '/managers/properties' : '/tenants/favorites', {
+                    scroll: false,
+                  })
+                }
+                title="Dashboard"
+              >
+                Dashboard
+              </DropdownMenuItem>
 
-                <DropdownMenuSeparator className="bg-primary-200" />
+              <DropdownMenuSeparator className="bg-primary-200" />
 
-                <DropdownMenuItem
-                  className="cursor-pointer"
-                  onClick={() => router.push(`/${userRole}s/settings`, { scroll: false })}
-                  title="Settings"
-                >
-                  Settings
-                </DropdownMenuItem>
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => router.push(`/${userRole}s/settings`, { scroll: false })}
+                title="Settings"
+              >
+                Settings
+              </DropdownMenuItem>
 
-                <DropdownMenuItem className="cursor-pointer" onClick={() => handleSignOut()} title="Sign out">
-                  Sign out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <>
-              <Link href="/signin">
-                <Button
-                  className="text-secondary bg-primary cursor-pointer"
-                  variant="outline"
-                  title="Sign In to Realtor Manager"
-                >
-                  Sign In
-                </Button>
-              </Link>
+              <DropdownMenuItem className="cursor-pointer" onClick={() => handleSignOut()} title="Sign out">
+                Sign out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <div className="flex items-center gap-4">
+            <Link href="/signin">
+              <Button
+                className="text-secondary bg-primary cursor-pointer"
+                variant="outline"
+                title="Sign In to Realtor Manager"
+              >
+                Sign In
+              </Button>
+            </Link>
 
-              <Link href="/signup">
-                <Button
-                  className="bg-secondary text-primary cursor-pointer"
-                  variant="secondary"
-                  title="Sign Up for Realtor Manager"
-                >
-                  Sign Up
-                </Button>
-              </Link>
-            </>
-          )}
-        </div>
+            <Link href="/signup">
+              <Button
+                className="bg-secondary text-primary cursor-pointer"
+                variant="secondary"
+                title="Sign Up for Realtor Manager"
+              >
+                Sign Up
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </header>
   )
