@@ -25,7 +25,7 @@ const AppSettingsForm: React.FC<SettingsFormProps> = ({ initialData, onSubmit, u
   }
 
   return (
-    <div className="px-8 pb-5 pt-8">
+    <div className="px-8 pt-8 pb-5">
       <div className="mb-5">
         <h1 className="text-xl font-semibold">{`${userType.charAt(0).toUpperCase() + userType.slice(1)} Settings`}</h1>
 
@@ -43,7 +43,8 @@ const AppSettingsForm: React.FC<SettingsFormProps> = ({ initialData, onSubmit, u
 
             <div className="flex justify-between pt-4">
               <Button
-                className="bg-secondary-500 text-white hover:bg-secondary-600"
+                className="cursor-pointer"
+                variant="default"
                 type="button"
                 title={editMode ? 'Cancel' : 'Edit'}
                 onClick={handleToggleEditMode}
@@ -52,7 +53,7 @@ const AppSettingsForm: React.FC<SettingsFormProps> = ({ initialData, onSubmit, u
               </Button>
 
               {editMode && (
-                <Button className="bg-primary-700 text-white hover:bg-primary-800" type="submit" title="Save Changes">
+                <Button className="cursor-pointer" variant="default" type="submit" title="Save Changes">
                   Save Changes
                 </Button>
               )}

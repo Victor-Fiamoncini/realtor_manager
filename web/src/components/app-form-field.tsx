@@ -72,11 +72,7 @@ export const CustomFormField: React.FC<FormFieldProps> = ({
 
             <SelectContent className="w-full border-gray-200 shadow">
               {options?.map((option) => (
-                <SelectItem
-                  key={option.value}
-                  className="hover:!text-customgreys-darkGrey cursor-pointer hover:!bg-gray-100"
-                  value={option.value}
-                >
+                <SelectItem key={option.value} className="cursor-pointer" value={option.value}>
                   {option.label}
                 </SelectItem>
               ))}
@@ -87,12 +83,7 @@ export const CustomFormField: React.FC<FormFieldProps> = ({
       case 'switch': {
         return (
           <div className="flex items-center space-x-2">
-            <Switch
-              id={name}
-              className={`text-customgreys-dirtyGrey ${inputClassName}`}
-              checked={field.value}
-              onCheckedChange={field.onChange}
-            />
+            <Switch id={name} className={inputClassName} checked={field.value} onCheckedChange={field.onChange} />
 
             <FormLabel className={labelClassName} htmlFor={name}>
               {label}
@@ -104,7 +95,7 @@ export const CustomFormField: React.FC<FormFieldProps> = ({
       case 'file': {
         return (
           <FilePond
-            className={`${inputClassName}`}
+            className={inputClassName}
             onupdatefiles={(fileItems) => {
               const files = fileItems.map((fileItem) => fileItem.file)
 
