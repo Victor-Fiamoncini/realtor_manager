@@ -1,13 +1,22 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 const FooterSection = () => (
-  <footer className="border-t border-gray-200 py-20">
+  <footer className="py-16">
     <div className="mx-auto max-w-4xl px-6 sm:px-8">
       <div className="flex flex-col items-center justify-between md:flex-row">
         <div className="mb-4">
-          <Link className="text-xl font-bold" href="/" title="Realtor Manager" scroll={false}>
-            Realtor Manager
+          <Link className="flex cursor-pointer items-center gap-4 text-xl font-bold" href="/" scroll={false}>
+            <Image
+              className="rounded-md bg-gray-600"
+              src="/logo.png"
+              alt="Realtor Manager Logo"
+              width={40}
+              height={40}
+            />
+
+            <>Realtor Manager</>
           </Link>
         </div>
 

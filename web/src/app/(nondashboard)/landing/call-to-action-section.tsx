@@ -14,7 +14,7 @@ const CallToActionSection = () => (
       fill
     />
 
-    <div className="absolute inset-0 bg-black bg-opacity-60" />
+    <div className="absolute inset-0 bg-black opacity-60" />
 
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -24,7 +24,7 @@ const CallToActionSection = () => (
       className="relative mx-auto max-w-4xl px-6 py-12 sm:px-8 lg:px-12 xl:max-w-6xl xl:px-16"
     >
       <div className="flex flex-col items-center justify-between md:flex-row">
-        <div className="mb-6 md:mb-0 md:mr-10">
+        <div className="mb-6 md:mr-10 md:mb-0">
           <h2 className="text-2xl font-bold text-white">Find Your Dream Rental Property</h2>
         </div>
 
@@ -33,7 +33,7 @@ const CallToActionSection = () => (
 
           <div className="flex justify-center gap-4 md:justify-start">
             <button
-              className="inline-block rounded-lg bg-white px-6 py-3 font-semibold text-primary-700 hover:bg-primary-500 hover:text-primary-50"
+              className="text-primary inline-block cursor-pointer rounded-lg bg-white px-6 py-3 font-semibold"
               title="Search"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
@@ -41,7 +41,7 @@ const CallToActionSection = () => (
             </button>
 
             <Link
-              className="inline-block rounded-lg bg-secondary-500 px-6 py-3 font-semibold text-white hover:bg-secondary-600"
+              className="bg-primary inline-block rounded-lg px-6 py-3 font-semibold text-white"
               href="/signup"
               title="Sign Up"
               scroll={false}
