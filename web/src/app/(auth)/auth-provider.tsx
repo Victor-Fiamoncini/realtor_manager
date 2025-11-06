@@ -74,12 +74,12 @@ const components = {
     if (route === 'signUp') subtext = 'Sign up to get started'
 
     return (
-      <View className="mb-6 mt-4">
-        <Heading className="!text-center !text-2xl !font-bold" level={3}>
+      <View className="mt-4 mb-6">
+        <Heading className="text-center! text-2xl! font-bold!" level={3}>
           Welcome to Realtor Manager
         </Heading>
 
-        <p className="mt-2 text-center text-muted-foreground">{subtext}</p>
+        <p className="text-muted-foreground mt-2 text-center">{subtext}</p>
       </View>
     )
   },
