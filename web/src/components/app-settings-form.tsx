@@ -41,10 +41,9 @@ const AppSettingsForm: React.FC<SettingsFormProps> = ({ initialData, onSubmit, u
 
             <CustomFormField name="phoneNumber" label="Phone Number" disabled={!editMode} />
 
-            <div className="flex justify-between pt-4">
+            <div className="flex items-center gap-4 pt-4">
               <Button
                 className="cursor-pointer"
-                variant="default"
                 type="button"
                 title={editMode ? 'Cancel' : 'Edit'}
                 onClick={handleToggleEditMode}
@@ -53,7 +52,7 @@ const AppSettingsForm: React.FC<SettingsFormProps> = ({ initialData, onSubmit, u
               </Button>
 
               {editMode && (
-                <Button className="cursor-pointer" variant="default" type="submit" title="Save Changes">
+                <Button className="cursor-pointer" type="submit" title="Save Changes">
                   Save Changes
                 </Button>
               )}

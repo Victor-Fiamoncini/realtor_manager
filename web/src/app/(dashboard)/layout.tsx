@@ -40,14 +40,14 @@ const DashboardLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen w-full bg-primary-100">
+      <div className="bg-secondary min-h-screen w-full">
         <AppNavbar />
 
         <div style={{ marginTop: `${NAVBAR_HEIGHT}px` }}>
           <main className="flex">
             <AppSidebar userType={user.userRole.toLowerCase()} />
 
-            <div className="flex-grow transition-all duration-300">{children}</div>
+            <div className="grow transition-all duration-300">{children}</div>
           </main>
         </div>
       </div>
