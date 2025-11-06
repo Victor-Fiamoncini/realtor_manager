@@ -27,8 +27,6 @@ const LandingLayout: React.FC<PropsWithChildren> = ({ children }) => {
     }
   }, [user, router, pathname])
 
-  if (isAuthLoading || isRedirectLoading) return 'Loading...'
-
   return (
     <div className="h-full">
       <AppNavbar />
