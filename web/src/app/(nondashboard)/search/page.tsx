@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 
 import FiltersBar from '@/app/(nondashboard)/search/filters-bar'
 import FiltersFull from '@/app/(nondashboard)/search/filters-full'
+import Listings from '@/app/(nondashboard)/search/listings'
 import Map from '@/app/(nondashboard)/search/map'
 import { NAVBAR_HEIGHT } from '@/lib/constants'
 import { cleanParams } from '@/lib/utils'
@@ -52,7 +53,9 @@ const SearchPage = () => {
 
         <Map />
 
-        <div className="basis-4/12 overflow-y-auto">{/* <Listings /> */}</div>
+        <div className="basis-4/12 overflow-y-auto">
+          <Listings />
+        </div>
       </div>
     </div>
   )
