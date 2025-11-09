@@ -18,7 +18,7 @@ export const api = createApi({
     },
   }),
   reducerPath: 'api',
-  tagTypes: ['Managers', 'Properties', 'Tenants'],
+  tagTypes: ['Managers', 'Properties', 'PropertyDetails', 'Tenants'],
   endpoints: (build) => ({
     getAuthUser: build.query<User, void>({
       queryFn: async (_arg, _queryApi, _extraOptions, fetchWithBQ) => {
@@ -103,13 +103,19 @@ export const api = createApi({
       },
     }),
 
+    getProperty: build.query<Property, number>({
+      query: (id) => `properties/${id}`,
+      providesTags: (result, error, id) => [{ type: 'PropertyDetails', id }],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, { error: 'Failed to load property details.' })
+      },
+    }),
+
     getTenant: build.query<Tenant, string>({
       query: (cognitoId) => `tenants/${cognitoId}`,
       providesTags: (result) => [{ type: 'Tenants', id: result?.id }],
       async onQueryStarted(_, { queryFulfilled }) {
-        await withToast(queryFulfilled, {
-          error: 'Failed to load tenant profile.',
-        })
+        await withToast(queryFulfilled, { error: 'Failed to load tenant profile.' })
       },
     }),
 
@@ -152,6 +158,7 @@ export const api = createApi({
 export const {
   useGetAuthUserQuery,
   useGetPropertiesQuery,
+  useGetPropertyQuery,
   useUpdateTenantSettingsMutation,
   useUpdateManagerSettingsMutation,
   useGetTenantQuery,
