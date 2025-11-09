@@ -88,7 +88,7 @@ const FiltersFull = () => {
 
           <div className="flex items-center">
             <Input
-              className="rounded-l-xl rounded-r-none border-r-0"
+              className="border-primary rounded-l-xl rounded-r-none border-r-0"
               placeholder="Enter location"
               value={filters.location}
               onChange={(event) =>
@@ -100,7 +100,8 @@ const FiltersFull = () => {
             />
 
             <Button
-              className="border-l-none hover:bg-primary-700 hover:text-primary-50 rounded-l-none rounded-r-xl border border-black shadow-none"
+              className="border-l-none border-primary cursor-pointer rounded-l-none rounded-r-xl border shadow-none"
+              title="Search"
               onClick={handleLocationSearch}
             >
               <Search className="h-4 w-4" />
@@ -117,7 +118,7 @@ const FiltersFull = () => {
                 key={type}
                 className={cn(
                   'flex cursor-pointer flex-col items-center justify-center rounded-xl border p-4',
-                  localFilters.propertyType === type ? 'border-black' : 'border-gray-200'
+                  localFilters.propertyType === type ? 'border-primary' : 'border-gray-200'
                 )}
                 onClick={() =>
                   setLocalFilters((state) => ({
@@ -165,7 +166,7 @@ const FiltersFull = () => {
               value={localFilters.beds || 'any'}
               onValueChange={(value) => setLocalFilters((state) => ({ ...state, beds: value }))}
             >
-              <SelectTrigger className="w-full rounded-xl">
+              <SelectTrigger className="border-primary w-full rounded-xl">
                 <SelectValue placeholder="Beds" />
               </SelectTrigger>
 
@@ -190,7 +191,7 @@ const FiltersFull = () => {
               value={localFilters.baths || 'any'}
               onValueChange={(value) => setLocalFilters((state) => ({ ...state, baths: value }))}
             >
-              <SelectTrigger className="w-full rounded-xl">
+              <SelectTrigger className="border-primary w-full rounded-xl">
                 <SelectValue placeholder="Baths" />
               </SelectTrigger>
 
@@ -211,7 +212,7 @@ const FiltersFull = () => {
           <h4 className="mb-2 font-bold">Square Feet</h4>
 
           <Slider
-            className="[&>.bar]:bg-primary-700"
+            className="[&>.bar]:bg-primary"
             min={0}
             max={5000}
             step={100}
@@ -256,7 +257,7 @@ const FiltersFull = () => {
           <h4 className="mb-2 font-bold">Available From</h4>
 
           <Input
-            className="rounded-xl"
+            className="border-primary rounded-xl"
             type="date"
             value={localFilters.availableFrom !== 'any' ? localFilters.availableFrom : ''}
             onChange={(event) =>
@@ -269,11 +270,16 @@ const FiltersFull = () => {
         </div>
 
         <div className="mt-6 flex gap-4">
-          <Button className="bg-primary-700 flex-1 rounded-xl text-white" title="Apply" onClick={handleSubmit}>
+          <Button className="flex-1 cursor-pointer rounded-xl" title="Apply" onClick={handleSubmit}>
             Apply
           </Button>
 
-          <Button variant="outline" className="flex-1 rounded-xl" title="Reset Filters" onClick={handleReset}>
+          <Button
+            className="flex-1 cursor-pointer rounded-xl"
+            variant="outline"
+            title="Reset Filters"
+            onClick={handleReset}
+          >
             Reset Filters
           </Button>
         </div>
