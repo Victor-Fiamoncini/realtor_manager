@@ -11,7 +11,7 @@ import { Property } from '@/types/prismaTypes'
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN as string
 
-const createPropertyMarker = (property: Property, map: mapboxgl.Map) => {
+const handleCreatePropertyMarker = (property: Property, map: mapboxgl.Map) => {
   const marker = new mapboxgl.Marker()
     .setLngLat([property.location.coordinates.longitude, property.location.coordinates.latitude])
     .setPopup(
@@ -21,7 +21,7 @@ const createPropertyMarker = (property: Property, map: mapboxgl.Map) => {
             <div class="marker-popup-image"></div>
 
             <div>
-              <a href="/search/${property.id}" target="_blank" class="marker-popup-title">${property.name}</a>
+              <a class="marker-popup-title" href="/search/${property.id}" target="_blank">${property.name}</a>
 
               <p class="marker-popup-price">
                 $${property.pricePerMonth}
@@ -43,7 +43,7 @@ const Map = () => {
 
   const { data: properties, isLoading, isError } = useGetPropertiesQuery(filters)
 
-  const mapContainerRef = useRef(null)
+  const mapContainerRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (isLoading || isError || !properties) return
@@ -56,7 +56,7 @@ const Map = () => {
     })
 
     properties.forEach((property) => {
-      const marker = createPropertyMarker(property, map)
+      const marker = handleCreatePropertyMarker(property, map)
       const markerElement = marker.getElement()
       const path = markerElement.querySelector("path[fill='#3FB1CE']")
 
