@@ -3,7 +3,7 @@ import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth'
 
 import { cleanParams, createNewUserInDatabase, withToast } from '@/lib/utils'
 import { FiltersState } from '@/state'
-import { Manager, Property, Tenant } from '@/types/prismaTypes'
+import { Application, Manager, Property, Tenant } from '@/types/prismaTypes'
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
@@ -18,7 +18,7 @@ export const api = createApi({
     },
   }),
   reducerPath: 'api',
-  tagTypes: ['Managers', 'Properties', 'PropertyDetails', 'Tenants'],
+  tagTypes: ['Applications', 'Managers', 'Properties', 'PropertyDetails', 'Tenants'],
   endpoints: (build) => ({
     getAuthUser: build.query<User, void>({
       queryFn: async (_arg, _queryApi, _extraOptions, fetchWithBQ) => {
@@ -57,20 +57,12 @@ export const api = createApi({
     }),
 
     updateTenantSettings: build.mutation<Tenant, { cognitoId: string } & Partial<Tenant>>({
-      query: ({ cognitoId, ...updatedTenant }) => ({
-        url: `/tenants/${cognitoId}`,
-        method: 'PUT',
-        body: updatedTenant,
-      }),
+      query: ({ cognitoId, ...body }) => ({ url: `/tenants/${cognitoId}`, method: 'PUT', body }),
       invalidatesTags: (result) => [{ type: 'Tenants', id: result?.id }],
     }),
 
     updateManagerSettings: build.mutation<Manager, { cognitoId: string } & Partial<Manager>>({
-      query: ({ cognitoId, ...updatedManager }) => ({
-        url: `/managers/${cognitoId}`,
-        method: 'PUT',
-        body: updatedManager,
-      }),
+      query: ({ cognitoId, ...body }) => ({ url: `/managers/${cognitoId}`, method: 'PUT', body }),
       invalidatesTags: (result) => [{ type: 'Managers', id: result?.id }],
     }),
 
@@ -120,10 +112,7 @@ export const api = createApi({
     }),
 
     addFavoriteProperty: build.mutation<Tenant, { cognitoId: string; propertyId: number }>({
-      query: ({ cognitoId, propertyId }) => ({
-        url: `tenants/${cognitoId}/favorites/${propertyId}`,
-        method: 'POST',
-      }),
+      query: ({ cognitoId, propertyId }) => ({ url: `tenants/${cognitoId}/favorites/${propertyId}`, method: 'POST' }),
       invalidatesTags: (result) => [
         { type: 'Tenants', id: result?.id },
         { type: 'Properties', id: 'LIST' },
@@ -137,10 +126,7 @@ export const api = createApi({
     }),
 
     removeFavoriteProperty: build.mutation<Tenant, { cognitoId: string; propertyId: number }>({
-      query: ({ cognitoId, propertyId }) => ({
-        url: `tenants/${cognitoId}/favorites/${propertyId}`,
-        method: 'DELETE',
-      }),
+      query: ({ cognitoId, propertyId }) => ({ url: `tenants/${cognitoId}/favorites/${propertyId}`, method: 'DELETE' }),
       invalidatesTags: (result) => [
         { type: 'Tenants', id: result?.id },
         { type: 'Properties', id: 'LIST' },
@@ -149,6 +135,17 @@ export const api = createApi({
         await withToast(queryFulfilled, {
           success: 'Removed from favorites!',
           error: 'Failed to remove from favorites.',
+        })
+      },
+    }),
+
+    createApplication: build.mutation<Application, Partial<Application>>({
+      query: (body) => ({ url: `applications`, method: 'POST', body }),
+      invalidatesTags: ['Applications'],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: 'Application created successfully!',
+          error: 'Failed to create applications.',
         })
       },
     }),
@@ -164,4 +161,5 @@ export const {
   useGetTenantQuery,
   useAddFavoritePropertyMutation,
   useRemoveFavoritePropertyMutation,
+  useCreateApplicationMutation,
 } = api
