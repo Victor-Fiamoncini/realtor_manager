@@ -50,7 +50,7 @@ const Map = () => {
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current!,
-      style: 'mapbox://styles/majesticglue/cm6u301pq008b01sl7yk1cnvb',
+      style: 'mapbox://styles/victorfiamon/cmhjmxqss002301s60r60fpzp',
       center: filters.coordinates || [-74.5, 40],
       zoom: 9,
     })
@@ -64,7 +64,7 @@ const Map = () => {
     })
 
     const resizeMap = () => {
-      if (map) setTimeout(() => map.resize(), 700)
+      if (map) setTimeout(() => map.resize(), 500)
     }
 
     resizeMap()
