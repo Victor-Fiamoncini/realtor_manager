@@ -11,7 +11,7 @@ import PropertyLocation from '@/app/(nondashboard)/search/[id]/property-location
 import PropertyOverview from '@/app/(nondashboard)/search/[id]/property-overview'
 import { useGetAuthUserQuery } from '@/state/api'
 
-const SingleListing = () => {
+const PropertyDetailsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const { data: user } = useGetAuthUserQuery()
@@ -42,4 +42,4 @@ const SingleListing = () => {
   )
 }
 
-export default SingleListing
+export default PropertyDetailsPage
