@@ -59,7 +59,11 @@ const Listings = () => {
                   <Card
                     key={property.id}
                     property={property}
-                    isFavorite={tenant?.favorites?.some((fav: Property) => fav.id === property.id) || false}
+                    isFavorite={
+                      Array.isArray(tenant?.favorites)
+                        ? tenant.favorites.some((favorite: Property) => favorite.id === property.id)
+                        : false
+                    }
                     onFavoriteToggle={() => handleFavoriteToggle(property.id)}
                     showFavoriteButton={!!user}
                     propertyLink={`/search/${property.id}`}
@@ -68,7 +72,11 @@ const Listings = () => {
                   <CardCompact
                     key={property.id}
                     property={property}
-                    isFavorite={tenant?.favorites?.some((fav: Property) => fav.id === property.id) || false}
+                    isFavorite={
+                      Array.isArray(tenant?.favorites)
+                        ? tenant.favorites.some((favorite: Property) => favorite.id === property.id)
+                        : false
+                    }
                     onFavoriteToggle={() => handleFavoriteToggle(property.id)}
                     showFavoriteButton={!!user}
                     propertyLink={`/search/${property.id}`}
