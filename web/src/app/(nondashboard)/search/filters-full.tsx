@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { debounce } from 'lodash'
 import { Search } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
@@ -60,16 +61,14 @@ const FiltersFull = () => {
   }
 
   const handleLocationSearch = async () => {
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(localFilters.location)}.json`
+
     try {
-      const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-          localFilters.location
-        )}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}&fuzzyMatch=true`
-      )
+      const { data } = await axios.get(url, {
+        params: { access_token: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN, fuzzyMatch: 'true' },
+      })
 
-      const data = await response.json()
-
-      if (data.features && data.features.length > 0) {
+      if (data && data.features && data.features.length > 0) {
         const [lng, lat] = data.features[0].center
 
         setLocalFilters((state) => ({ ...state, coordinates: [lng, lat] }))
@@ -101,7 +100,7 @@ const FiltersFull = () => {
             />
 
             <Button
-              className="border-l-none rounded-l-none rounded-r-xl border border-black shadow-none hover:bg-primary-700 hover:text-primary-50"
+              className="border-l-none hover:bg-primary-700 hover:text-primary-50 rounded-l-none rounded-r-xl border border-black shadow-none"
               onClick={handleLocationSearch}
             >
               <Search className="h-4 w-4" />
@@ -270,7 +269,7 @@ const FiltersFull = () => {
         </div>
 
         <div className="mt-6 flex gap-4">
-          <Button className="flex-1 rounded-xl bg-primary-700 text-white" title="Apply" onClick={handleSubmit}>
+          <Button className="bg-primary-700 flex-1 rounded-xl text-white" title="Apply" onClick={handleSubmit}>
             Apply
           </Button>
 
