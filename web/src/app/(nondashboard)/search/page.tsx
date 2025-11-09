@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 
 const SearchPage = () => {
   const dispatch = useAppDispatch()
-  const isFiltersFullOpen = useAppSelector((state) => state.global.isFiltersFullOpen)
+  const { isFiltersFullOpen } = useAppSelector((state) => state.global)
 
   const searchParams = useSearchParams()
 

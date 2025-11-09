@@ -18,8 +18,7 @@ import { useAppSelector } from '@/state/hooks'
 const FiltersFull = () => {
   const dispatch = useDispatch()
 
-  const filters = useAppSelector((state) => state.global.filters)
-  const isFiltersFullOpen = useAppSelector((state) => state.global.isFiltersFullOpen)
+  const { filters, isFiltersFullOpen } = useAppSelector((state) => state.global)
 
   const [localFilters, setLocalFilters] = useState(initialState.filters)
 

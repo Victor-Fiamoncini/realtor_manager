@@ -16,9 +16,7 @@ import { useAppSelector } from '@/state/hooks'
 const FiltersBar = () => {
   const dispatch = useDispatch()
 
-  const filters = useAppSelector((state) => state.global.filters)
-  const isFiltersFullOpen = useAppSelector((state) => state.global.isFiltersFullOpen)
-  const viewMode = useAppSelector((state) => state.global.viewMode)
+  const { filters, isFiltersFullOpen, viewMode } = useAppSelector((state) => state.global)
 
   const [searchInput, setSearchInput] = useState(filters.location)
 
