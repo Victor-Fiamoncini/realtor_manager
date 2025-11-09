@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { debounce } from 'lodash'
 import { Filter, Grid, List, Search } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
@@ -62,16 +63,14 @@ const FiltersBar = () => {
   }
 
   const handleLocationSearch = async () => {
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchInput)}.json`
+
     try {
-      const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchInput)}.json?access_token=${
-          process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
-        }&fuzzyMatch=true`
-      )
+      const { data } = await axios.get(url, {
+        params: { access_token: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN, fuzzyMatch: 'true' },
+      })
 
-      const data = await response.json()
-
-      if (data.features && data.features.length > 0) {
+      if (data && data.features && data.features.length > 0) {
         const [lng, lat] = data.features[0].center
 
         dispatch(setFilters({ location: searchInput, coordinates: [lng, lat] }))
@@ -86,10 +85,11 @@ const FiltersBar = () => {
       <div className="flex items-center justify-between gap-4 p-2">
         <Button
           className={cn(
-            'gap-2 rounded-xl border-primary-400 hover:bg-primary-500 hover:text-primary-100',
+            'border-primary cursor-pointer gap-2 rounded-xl',
             isFiltersFullOpen && 'bg-primary-700 text-primary-100'
           )}
           variant="outline"
+          title="All Filters"
           onClick={() => dispatch(toggleFiltersFullOpen())}
         >
           <Filter className="h-4 w-4" />
@@ -99,26 +99,27 @@ const FiltersBar = () => {
 
         <div className="flex items-center">
           <Input
-            className="w-40 rounded-l-xl rounded-r-none border-r-0 border-primary-400"
+            className="border-primary w-full min-w-44 rounded-l-xl rounded-r-none border-r-0"
             placeholder="Search location"
             value={searchInput}
             onChange={(event) => setSearchInput(event.target.value)}
           />
 
           <Button
-            className="border-l-none rounded-l-none rounded-r-xl border border-primary-400 shadow-none hover:bg-primary-700 hover:text-primary-50"
+            className="border-l-none border-primary cursor-pointer rounded-l-none rounded-r-xl border shadow-none"
+            title="Search"
             onClick={handleLocationSearch}
           >
             <Search className="h-4 w-4" />
           </Button>
         </div>
 
-        <div className="flex gap-1">
+        <div className="flex gap-2">
           <Select
             value={filters.priceRange[0]?.toString() || 'any'}
             onValueChange={(value) => handleFilterChange('priceRange', value, true)}
           >
-            <SelectTrigger className="w-22 rounded-xl border-primary-400">
+            <SelectTrigger className="border-primary w-full rounded-xl">
               <SelectValue>{formatPriceValue(filters.priceRange[0], true)}</SelectValue>
             </SelectTrigger>
 
@@ -137,7 +138,7 @@ const FiltersBar = () => {
             value={filters.priceRange[1]?.toString() || 'any'}
             onValueChange={(value) => handleFilterChange('priceRange', value, false)}
           >
-            <SelectTrigger className="w-22 rounded-xl border-primary-400">
+            <SelectTrigger className="border-primary w-full rounded-xl">
               <SelectValue>{formatPriceValue(filters.priceRange[1], false)}</SelectValue>
             </SelectTrigger>
 
@@ -153,9 +154,9 @@ const FiltersBar = () => {
           </Select>
         </div>
 
-        <div className="flex gap-1">
+        <div className="flex gap-2">
           <Select value={filters.beds} onValueChange={(value) => handleFilterChange('beds', value, null)}>
-            <SelectTrigger className="w-26 rounded-xl border-primary-400">
+            <SelectTrigger className="border-primary w-full rounded-xl">
               <SelectValue placeholder="Beds" />
             </SelectTrigger>
 
@@ -173,7 +174,7 @@ const FiltersBar = () => {
           </Select>
 
           <Select value={filters.baths} onValueChange={(value) => handleFilterChange('baths', value, null)}>
-            <SelectTrigger className="w-26 rounded-xl border-primary-400">
+            <SelectTrigger className="border-primary w-full rounded-xl">
               <SelectValue placeholder="Baths" />
             </SelectTrigger>
 
@@ -193,7 +194,7 @@ const FiltersBar = () => {
           value={filters.propertyType || 'any'}
           onValueChange={(value) => handleFilterChange('propertyType', value, null)}
         >
-          <SelectTrigger className="w-full rounded-xl border-primary-400">
+          <SelectTrigger className="border-primary w-full rounded-xl">
             <SelectValue placeholder="Home Type" />
           </SelectTrigger>
 
@@ -217,8 +218,8 @@ const FiltersBar = () => {
         <div className="flex rounded-xl border">
           <Button
             className={cn(
-              'rounded-none rounded-l-xl px-3 py-1 hover:bg-primary-600 hover:text-primary-50',
-              viewMode === 'list' ? 'bg-primary-700 text-primary-50' : ''
+              'cursor-pointer rounded-none rounded-l-xl px-3 py-1',
+              viewMode === 'list' ? 'bg-primary text-secondary' : ''
             )}
             variant="ghost"
             onClick={() => dispatch(setViewMode('list'))}
@@ -228,8 +229,8 @@ const FiltersBar = () => {
 
           <Button
             className={cn(
-              'rounded-none rounded-r-xl px-3 py-1 hover:bg-primary-600 hover:text-primary-50',
-              viewMode === 'grid' ? 'bg-primary-700 text-primary-50' : ''
+              'cursor-pointer rounded-none rounded-r-xl px-3 py-1',
+              viewMode === 'grid' ? 'bg-primary text-secondary' : ''
             )}
             variant="ghost"
             onClick={() => dispatch(setViewMode('grid'))}
