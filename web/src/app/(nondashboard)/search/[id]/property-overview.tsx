@@ -8,7 +8,7 @@ const PropertyOverview = ({ propertyId }: PropertyOverviewProps) => {
 
   if (isLoading) return 'Loading...'
 
-  if (isError || !property) return 'Property not Found'
+  if (isError || !property) return 'Property not found'
 
   return (
     <div>
