@@ -1,4 +1,4 @@
-import { Building, FileText, Heart, Home, Menu, Settings, X } from 'lucide-react'
+import { Building, FileText, Heart, Home, Settings, X } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
@@ -13,7 +13,6 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import { useIsMobile } from '@/hooks/use-mobile'
-import { NAVBAR_HEIGHT } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 type Props = { userType: 'manager' | 'tenant' }
@@ -45,9 +44,9 @@ const AppSidebar: React.FC<Props> = ({ userType }) => {
 
   return (
     <Sidebar
-      className="shadow-lg"
+      className="min-h-screen shadow-lg"
       collapsible={isMobile ? 'offcanvas' : 'none'}
-      style={{ top: `${NAVBAR_HEIGHT}px`, height: `calc(100vh - ${NAVBAR_HEIGHT}px)` }}
+      style={{ height: 'unset' }}
     >
       <SidebarHeader>
         <SidebarMenu>
