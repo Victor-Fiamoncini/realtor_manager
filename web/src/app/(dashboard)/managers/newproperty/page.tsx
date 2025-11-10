@@ -14,7 +14,7 @@ import { useCreatePropertyMutation, useGetAuthUserQuery } from '@/state/api'
 
 const NewProperty = () => {
   const [createProperty] = useCreatePropertyMutation()
-  const { data: authUser } = useGetAuthUserQuery()
+  const { data: user } = useGetAuthUserQuery()
 
   const form = useForm<PropertyFormData>({
     resolver: zodResolver(propertySchema),
@@ -41,9 +41,11 @@ const NewProperty = () => {
   })
 
   const handleFormSubmit = async (data: PropertyFormData) => {
-    if (!authUser?.cognitoInfo?.userId) {
-      throw new Error('No manager ID found')
-    }
+    if (!user) throw new Error('Manager not authenticated')
+
+    if (!user.cognitoInfo) throw new Error('No cognito info found for manager')
+
+    if (!user.cognitoInfo.userId) throw new Error('No manager ID found')
 
     const formData = new FormData()
 
@@ -61,7 +63,7 @@ const NewProperty = () => {
       }
     })
 
-    formData.append('managerCognitoId', authUser.cognitoInfo.userId)
+    formData.append('managerCognitoId', user.cognitoInfo.userId)
 
     await createProperty(formData)
   }
