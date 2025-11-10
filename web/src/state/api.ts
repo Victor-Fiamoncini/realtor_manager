@@ -3,7 +3,7 @@ import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth'
 
 import { cleanParams, createNewUserInDatabase, withToast } from '@/lib/utils'
 import { FiltersState } from '@/state'
-import { Application, Manager, Property, Tenant } from '@/types/prismaTypes'
+import { Application, Lease, Manager, Payment, Property, Tenant } from '@/types/prismaTypes'
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
@@ -18,7 +18,7 @@ export const api = createApi({
     },
   }),
   reducerPath: 'api',
-  tagTypes: ['Applications', 'Managers', 'Properties', 'PropertyDetails', 'Tenants'],
+  tagTypes: ['Applications', 'Leases', 'Managers', 'Payments', 'Properties', 'PropertyDetails', 'Tenants'],
   endpoints: (build) => ({
     getAuthUser: build.query<User, void>({
       queryFn: async (_arg, _queryApi, _extraOptions, fetchWithBQ) => {
@@ -160,6 +160,22 @@ export const api = createApi({
         })
       },
     }),
+
+    getLeases: build.query<Lease[], number>({
+      query: () => 'leases',
+      providesTags: ['Leases'],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, { error: 'Failed to fetch leases.' })
+      },
+    }),
+
+    getPayments: build.query<Payment[], number>({
+      query: (leaseId) => `leases/${leaseId}/payments`,
+      providesTags: ['Payments'],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, { error: 'Failed to fetch payment info.' })
+      },
+    }),
   }),
 })
 
@@ -174,4 +190,6 @@ export const {
   useAddFavoritePropertyMutation,
   useRemoveFavoritePropertyMutation,
   useCreateApplicationMutation,
+  useGetLeasesQuery,
+  useGetPaymentsQuery,
 } = api
