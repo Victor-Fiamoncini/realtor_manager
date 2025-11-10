@@ -195,6 +195,20 @@ export const api = createApi({
         await withToast(queryFulfilled, { error: 'Failed to load manager profile.' })
       },
     }),
+
+    createProperty: build.mutation<Property, FormData>({
+      query: (body) => ({ url: `properties`, method: 'POST', body }),
+      invalidatesTags: (result) => [
+        { type: 'Properties', id: 'LIST' },
+        { type: 'Managers', id: result?.manager?.id },
+      ],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: 'Property created successfully!',
+          error: 'Failed to create property.',
+        })
+      },
+    }),
   }),
 })
 
@@ -213,4 +227,5 @@ export const {
   useGetPropertyLeasesQuery,
   useGetPaymentsQuery,
   useGetManagerPropertiesQuery,
+  useCreatePropertyMutation,
 } = api
