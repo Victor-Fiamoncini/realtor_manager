@@ -176,6 +176,17 @@ export const api = createApi({
         await withToast(queryFulfilled, { error: 'Failed to fetch payment info.' })
       },
     }),
+
+    getManagerProperties: build.query<Property[], string>({
+      query: (cognitoId) => `managers/${cognitoId}/properties`,
+      providesTags: (result) =>
+        result
+          ? [...result.map(({ id }) => ({ type: 'Properties' as const, id })), { type: 'Properties', id: 'LIST' }]
+          : [{ type: 'Properties', id: 'LIST' }],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, { error: 'Failed to load manager profile.' })
+      },
+    }),
   }),
 })
 
@@ -192,4 +203,5 @@ export const {
   useCreateApplicationMutation,
   useGetLeasesQuery,
   useGetPaymentsQuery,
+  useGetManagerPropertiesQuery,
 } = api
