@@ -169,6 +169,14 @@ export const api = createApi({
       },
     }),
 
+    getPropertyLeases: build.query<Lease[], number>({
+      query: (propertyId) => `properties/${propertyId}/leases`,
+      providesTags: ['Leases'],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, { error: 'Failed to fetch property leases.' })
+      },
+    }),
+
     getPayments: build.query<Payment[], number>({
       query: (leaseId) => `leases/${leaseId}/payments`,
       providesTags: ['Payments'],
@@ -202,6 +210,7 @@ export const {
   useRemoveFavoritePropertyMutation,
   useCreateApplicationMutation,
   useGetLeasesQuery,
+  useGetPropertyLeasesQuery,
   useGetPaymentsQuery,
   useGetManagerPropertiesQuery,
 } = api
