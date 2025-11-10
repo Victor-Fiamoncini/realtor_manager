@@ -1,7 +1,7 @@
 import { Loader2 } from 'lucide-react'
 import React from 'react'
 
-const AppLoading = () => (
+const AppPageLoading = () => (
   <div className="bg-background/50 fixed inset-0 flex items-center justify-center gap-2">
     <Loader2 className="text-primary h-6 w-6 animate-spin" />
 
@@ -9,4 +9,4 @@ const AppLoading = () => (
   </div>
 )
 
-export default AppLoading
+export default AppPageLoading
