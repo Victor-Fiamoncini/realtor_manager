@@ -46,7 +46,7 @@ const Card = ({ property, isFavorite, onFavoriteToggle, showFavoriteButton = tru
       <div className="p-4">
         <h2 className="mb-1 text-xl font-bold">
           {propertyLink ? (
-            <Link className="hover:text-blue-600 hover:underline" href={propertyLink} scroll={false}>
+            <Link className="hover:underline" href={propertyLink} scroll={false}>
               {property.name}
             </Link>
           ) : (
