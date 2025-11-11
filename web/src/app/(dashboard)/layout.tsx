@@ -6,6 +6,7 @@ import React, { PropsWithChildren, useEffect, useState } from 'react'
 import AppNavbar from '@/components/app-navbar'
 import AppSidebar from '@/components/app-sidebar'
 import { SidebarProvider } from '@/components/ui/sidebar'
+import { Toaster } from '@/components/ui/sonner'
 import { NAVBAR_HEIGHT } from '@/lib/constants'
 import { useGetAuthUserQuery } from '@/state/api'
 
@@ -51,6 +52,8 @@ const DashboardLayout: React.FC<PropsWithChildren> = ({ children }) => {
           </main>
         </div>
       </div>
+
+      <Toaster />
     </SidebarProvider>
   )
 }
