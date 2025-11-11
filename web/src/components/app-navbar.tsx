@@ -81,7 +81,7 @@ const AppNavbar = () => {
 
               <DropdownMenuItem
                 className="cursor-pointer"
-                onClick={() => router.push(userRole ? '/managers/newproperty' : '/search')}
+                onClick={() => router.push(userRole ? '/managers/new-property' : '/search')}
                 title={userRole === 'manager' ? 'Add New Property' : 'Search Properties'}
               >
                 {userRole === 'manager' ? 'Add New Property' : 'Search Properties'}
