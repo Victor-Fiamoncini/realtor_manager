@@ -12,7 +12,7 @@ import { AmenityEnum, HighlightEnum, PropertyTypeEnum } from '@/lib/constants'
 import { PropertyFormData, propertySchema } from '@/lib/schemas'
 import { useCreatePropertyMutation, useGetAuthUserQuery } from '@/state/api'
 
-const NewProperty = () => {
+const NewPropertyPage = () => {
   const [createProperty] = useCreatePropertyMutation()
   const { data: user } = useGetAuthUserQuery()
 
@@ -53,9 +53,7 @@ const NewProperty = () => {
       if (key === 'photoUrls') {
         const files = value as File[]
 
-        files.forEach((file: File) => {
-          formData.append('photos', file)
-        })
+        files.forEach((file: File) => formData.append('photos', file))
       } else if (Array.isArray(value)) {
         formData.append(key, JSON.stringify(value))
       } else {
@@ -123,10 +121,7 @@ const NewProperty = () => {
                   name="propertyType"
                   label="Property Type"
                   type="select"
-                  options={Object.keys(PropertyTypeEnum).map((type) => ({
-                    value: type,
-                    label: type,
-                  }))}
+                  options={Object.keys(PropertyTypeEnum).map((type) => ({ value: type, label: type }))}
                 />
               </div>
             </div>
@@ -141,20 +136,14 @@ const NewProperty = () => {
                   name="amenities"
                   label="Amenities"
                   type="select"
-                  options={Object.keys(AmenityEnum).map((amenity) => ({
-                    value: amenity,
-                    label: amenity,
-                  }))}
+                  options={Object.keys(AmenityEnum).map((amenity) => ({ value: amenity, label: amenity }))}
                 />
 
                 <CustomFormField
                   name="highlights"
                   label="Highlights"
                   type="select"
-                  options={Object.keys(HighlightEnum).map((highlight) => ({
-                    value: highlight,
-                    label: highlight,
-                  }))}
+                  options={Object.keys(HighlightEnum).map((highlight) => ({ value: highlight, label: highlight }))}
                 />
               </div>
             </div>
@@ -181,11 +170,11 @@ const NewProperty = () => {
               <CustomFormField name="address" label="Address" />
 
               <div className="flex justify-between gap-4">
-                <CustomFormField name="city" label="City" className="w-full" />
+                <CustomFormField className="w-full" name="city" label="City" />
 
-                <CustomFormField name="state" label="State" className="w-full" />
+                <CustomFormField className="w-full" name="state" label="State" />
 
-                <CustomFormField name="postalCode" label="Postal Code" className="w-full" />
+                <CustomFormField className="w-full" name="postalCode" label="Postal Code" />
               </div>
 
               <CustomFormField name="country" label="Country" />
@@ -201,4 +190,4 @@ const NewProperty = () => {
   )
 }
 
-export default NewProperty
+export default NewPropertyPage
