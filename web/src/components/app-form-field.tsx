@@ -41,12 +41,10 @@ export const CustomFormField: React.FC<FormFieldProps> = ({
   type = 'text',
   placeholder,
   options,
-  accept,
   className,
   inputClassName,
   labelClassName,
   disabled = false,
-  multiple = false,
   isIcon = false,
   initialValue,
 }) => {
@@ -179,10 +177,7 @@ type MultiInputFieldProps = {
 }
 
 const MultiInputField: React.FC<MultiInputFieldProps> = ({ name, control, placeholder, inputClassName }) => {
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name,
-  })
+  const { fields, append, remove } = useFieldArray({ control, name })
 
   return (
     <div className="space-y-2">
