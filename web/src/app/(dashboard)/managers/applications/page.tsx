@@ -11,8 +11,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useGetApplicationsQuery, useGetAuthUserQuery, useUpdateApplicationStatusMutation } from '@/state/api'
 
 const ApplicationsPage = () => {
-  const { data: user } = useGetAuthUserQuery()
   const [activeTab, setActiveTab] = useState('all')
+
+  const { data: user } = useGetAuthUserQuery()
 
   const {
     data: applications,
@@ -137,9 +138,7 @@ const ApplicationsPage = () => {
                       )}
 
                       {application.status === 'Denied' && (
-                        <button
-                          className={`hover:bg-secondary-500 hover:text-primary-50 flex items-center justify-center rounded-md bg-gray-800 px-4 py-2 text-white`}
-                        >
+                        <button className="flex items-center justify-center rounded-md bg-gray-800 px-4 py-2 text-white">
                           Contact User
                         </button>
                       )}

@@ -69,11 +69,7 @@ const ApplicationModal = ({ isOpen, onClose, propertyId }: ApplicationModalProps
               placeholder="Enter any additional information"
             />
 
-            <Button
-              className="bg-primary-700 w-full cursor-pointer text-white"
-              title="Submit Application"
-              type="submit"
-            >
+            <Button className="w-full cursor-pointer" title="Submit Application" type="submit">
               Submit Application
             </Button>
           </form>

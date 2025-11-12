@@ -33,7 +33,7 @@ const ContactWidget = ({ onOpenModal }: ContactWidgetProps) => {
       </div>
 
       <Button
-        className="bg-primary-700 hover:bg-primary-600 w-full cursor-pointer text-white"
+        className="w-full cursor-pointer"
         title={user ? 'Submit Application' : 'Sign In to Apply'}
         onClick={handleButtonClick}
       >
