@@ -78,7 +78,11 @@ const HeroSection = () => {
               onChange={(event) => setSearchQuery(event.target.value)}
             />
 
-            <Button className="bg-primary h-12 rounded-none rounded-r-xl" title="Search" onClick={handleLocationSearch}>
+            <Button
+              className="h-12 cursor-pointer rounded-none rounded-r-xl"
+              title="Search"
+              onClick={handleLocationSearch}
+            >
               Search
             </Button>
           </div>
