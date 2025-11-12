@@ -122,14 +122,16 @@ const ApplicationsPage = () => {
                       {application.status === 'Pending' && (
                         <>
                           <button
-                            className="rounded bg-green-600 px-4 py-2 text-sm text-white hover:bg-green-500"
+                            className="cursor-pointer rounded bg-green-600 px-4 py-2 text-sm text-white hover:bg-green-500"
+                            title="Approve"
                             onClick={() => handleStatusChange(application.id, 'Approved')}
                           >
                             Approve
                           </button>
 
                           <button
-                            className="rounded bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-500"
+                            className="cursor-pointer rounded bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-500"
+                            title="Deny"
                             onClick={() => handleStatusChange(application.id, 'Denied')}
                           >
                             Deny
