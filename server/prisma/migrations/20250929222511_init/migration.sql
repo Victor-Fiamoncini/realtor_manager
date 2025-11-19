@@ -13,9 +13,6 @@ CREATE TYPE "public"."PropertyType" AS ENUM ('Rooms', 'Tinyhouse', 'Apartment', 
 -- CreateEnum
 CREATE TYPE "public"."ApplicationStatus" AS ENUM ('Pending', 'Denied', 'Approved');
 
--- CreateEnum
-CREATE TYPE "public"."PaymentStatus" AS ENUM ('Pending', 'Paid', 'PartiallyPaid', 'Overdue');
-
 -- CreateTable
 CREATE TABLE "public"."Property" (
     "id" SERIAL NOT NULL,
@@ -107,19 +104,6 @@ CREATE TABLE "public"."Lease" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."Payment" (
-    "id" SERIAL NOT NULL,
-    "amountDue" DOUBLE PRECISION NOT NULL,
-    "amountPaid" DOUBLE PRECISION NOT NULL,
-    "dueDate" TIMESTAMP(3) NOT NULL,
-    "paymentDate" TIMESTAMP(3) NOT NULL,
-    "paymentStatus" "public"."PaymentStatus" NOT NULL,
-    "leaseId" INTEGER NOT NULL,
-
-    CONSTRAINT "Payment_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "public"."_TenantFavorites" (
     "A" INTEGER NOT NULL,
     "B" INTEGER NOT NULL,
@@ -170,9 +154,6 @@ ALTER TABLE "public"."Lease" ADD CONSTRAINT "Lease_propertyId_fkey" FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE "public"."Lease" ADD CONSTRAINT "Lease_tenantCognitoId_fkey" FOREIGN KEY ("tenantCognitoId") REFERENCES "public"."Tenant"("cognitoId") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "public"."Payment" ADD CONSTRAINT "Payment_leaseId_fkey" FOREIGN KEY ("leaseId") REFERENCES "public"."Lease"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "public"."_TenantFavorites" ADD CONSTRAINT "_TenantFavorites_A_fkey" FOREIGN KEY ("A") REFERENCES "public"."Property"("id") ON DELETE CASCADE ON UPDATE CASCADE;

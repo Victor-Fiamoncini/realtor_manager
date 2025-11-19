@@ -58,13 +58,6 @@ enum ApplicationStatus {
   Approved
 }
 
-enum PaymentStatus {
-  Pending
-  Paid
-  PartiallyPaid
-  Overdue
-}
-
 model Property {
   id                Int          @id @default(autoincrement())
   name              String
@@ -159,17 +152,4 @@ model Lease {
   property    Property     @relation(fields: [propertyId], references: [id])
   tenant      Tenant       @relation(fields: [tenantCognitoId], references: [cognitoId])
   application Application?
-  payments    Payment[]
-}
-
-model Payment {
-  id            Int           @id @default(autoincrement())
-  amountDue     Float
-  amountPaid    Float
-  dueDate       DateTime
-  paymentDate   DateTime
-  paymentStatus PaymentStatus
-  leaseId       Int
-
-  lease Lease @relation(fields: [leaseId], references: [id])
 }
