@@ -57,11 +57,23 @@ export const api = createApi({
     updateTenantSettings: build.mutation({
       query: ({ cognitoId, ...body }) => ({ url: `/tenants/${cognitoId}`, method: 'PUT', body }),
       invalidatesTags: (result) => [{ type: 'Tenants', id: result?.id }],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: 'Tenant settings updated successfully!',
+          error: 'Failed to update tenant settings.',
+        })
+      },
     }),
 
     updateManagerSettings: build.mutation({
       query: ({ cognitoId, ...body }) => ({ url: `/managers/${cognitoId}`, method: 'PUT', body }),
       invalidatesTags: (result) => [{ type: 'Managers', id: result?.id }],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: 'Manager settings updated successfully!',
+          error: 'Failed to update manager settings.',
+        })
+      },
     }),
 
     getProperties: build.query({
