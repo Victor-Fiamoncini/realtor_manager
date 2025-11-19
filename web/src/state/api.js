@@ -16,7 +16,7 @@ export const api = createApi({
     },
   }),
   reducerPath: 'api',
-  tagTypes: ['Applications', 'Leases', 'Managers', 'Payments', 'Properties', 'PropertyDetails', 'Tenants'],
+  tagTypes: ['Applications', 'Leases', 'Managers', 'Properties', 'PropertyDetails', 'Tenants'],
   endpoints: (build) => ({
     getAuthUser: build.query({
       queryFn: async (_arg, _queryApi, _extraOptions, fetchWithBQ) => {
@@ -175,14 +175,6 @@ export const api = createApi({
       },
     }),
 
-    getPayments: build.query({
-      query: (leaseId) => `leases/${leaseId}/payments`,
-      providesTags: ['Payments'],
-      async onQueryStarted(_, { queryFulfilled }) {
-        await withToast(queryFulfilled, { error: 'Failed to fetch payment info.' })
-      },
-    }),
-
     getManagerProperties: build.query({
       query: (cognitoId) => `managers/${cognitoId}/properties`,
       providesTags: (result) =>
@@ -254,7 +246,6 @@ export const {
   useCreateApplicationMutation,
   useGetLeasesQuery,
   useGetPropertyLeasesQuery,
-  useGetPaymentsQuery,
   useGetManagerPropertiesQuery,
   useCreatePropertyMutation,
   useGetApplicationsQuery,
