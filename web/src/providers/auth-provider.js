@@ -146,29 +146,35 @@ const components = {
 }
 
 export default function AuthProvider({ children }) {
-  const { user } = useAuthenticator((context) => [context.user])
+  const { route, user } = useAuthenticator((context) => [context.route, context.user])
 
   const router = useRouter()
   const pathname = usePathname()
 
-  const isAuthPage = pathname.match(/^\/(signin|signup)$/)
-  const isDashboardPage = pathname.startsWith('/managers') || pathname.startsWith('/tenants')
+  const isAuthPage = pathname === '/signin' || pathname === '/signup'
+  const isLandingPage = pathname === '/landing'
 
   useEffect(() => {
-    if (user && isAuthPage) router.push('/')
-  }, [isAuthPage, router, user])
+    if (user && isAuthPage) {
+      router.push('/landing', { scroll: false })
+    }
+  }, [user, isAuthPage, router])
 
-  if (!isAuthPage && !isDashboardPage) return children
+  if ((route === 'authenticated' && user) || isLandingPage) return children
 
-  return (
-    <div className="h-full">
-      <Authenticator
-        initialState={pathname.includes('signup') ? 'signUp' : 'signIn'}
-        components={components}
-        formFields={formFields}
-      >
-        {() => <>{children}</>}
-      </Authenticator>
-    </div>
-  )
+  if (isAuthPage) {
+    return (
+      <div className="h-full">
+        <Authenticator
+          initialState={pathname.includes('signup') ? 'signUp' : 'signIn'}
+          components={components}
+          formFields={formFields}
+        >
+          {() => <>{children}</>}
+        </Authenticator>
+      </div>
+    )
+  }
+
+  return children
 }
