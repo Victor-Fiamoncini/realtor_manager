@@ -9,8 +9,8 @@ import { useGetAuthUserQuery, useGetPropertiesQuery, useGetTenantQuery } from '@
 
 const FavoritesPage = () => {
   const { data: user } = useGetAuthUserQuery()
-  const { data: tenant } = useGetTenantQuery(user?.cognitoInfo?.userId || '', {
-    skip: !user?.cognitoInfo?.userId,
+  const { data: tenant } = useGetTenantQuery(user.cognitoInfo.userId || '', {
+    skip: !user.cognitoInfo.userId,
   })
 
   const {
@@ -19,7 +19,7 @@ const FavoritesPage = () => {
     error,
   } = useGetPropertiesQuery(
     { favoriteIds: tenant?.favorites ? tenant.favorites.map((favorite) => favorite.id) : [] },
-    { skip: !tenant?.favorites || tenant?.favorites.length === 0 }
+    { skip: !tenant?.favorites || tenant?.favorites?.length === 0 }
   )
 
   if (isLoading) return <AppPageLoading />

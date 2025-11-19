@@ -13,8 +13,8 @@ const PropertiesPage = () => {
     data: managerProperties,
     isLoading,
     error,
-  } = useGetManagerPropertiesQuery(user?.cognitoInfo?.userId || '', {
-    skip: !user?.cognitoInfo?.userId,
+  } = useGetManagerPropertiesQuery(user.cognitoInfo.userId || '', {
+    skip: !user.cognitoInfo.userId,
   })
 
   if (isLoading) return <AppPageLoading />

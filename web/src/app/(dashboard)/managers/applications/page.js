@@ -21,10 +21,10 @@ const ApplicationsPage = () => {
     isError,
   } = useGetApplicationsQuery(
     {
-      userId: user?.cognitoInfo?.userId,
+      userId: user.cognitoInfo.userId,
       userType: 'manager',
     },
-    { skip: !user?.cognitoInfo?.userId }
+    { skip: !user.cognitoInfo.userId }
   )
   const [updateApplicationStatus] = useUpdateApplicationStatusMutation()
 

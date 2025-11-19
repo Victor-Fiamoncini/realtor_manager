@@ -9,16 +9,16 @@ import { useGetAuthUserQuery, useGetCurrentResidencesQuery, useGetTenantQuery } 
 
 const ResidencesPage = () => {
   const { data: user } = useGetAuthUserQuery()
-  const { data: tenant } = useGetTenantQuery(user?.cognitoInfo?.userId || '', {
-    skip: !user?.cognitoInfo?.userId,
+  const { data: tenant } = useGetTenantQuery(user.cognitoInfo.userId || '', {
+    skip: !user.cognitoInfo.userId,
   })
 
   const {
     data: currentResidences,
     isLoading,
     error,
-  } = useGetCurrentResidencesQuery(user?.cognitoInfo?.userId || '', {
-    skip: !user?.cognitoInfo?.userId,
+  } = useGetCurrentResidencesQuery(user.cognitoInfo.userId || '', {
+    skip: !user.cognitoInfo.userId,
   })
 
   if (isLoading) return <AppPageLoading />

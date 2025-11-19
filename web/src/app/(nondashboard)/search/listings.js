@@ -13,8 +13,8 @@ import { useAppSelector } from '@/state/hooks'
 
 const Listings = () => {
   const { data: user } = useGetAuthUserQuery()
-  const { data: tenant } = useGetTenantQuery(user?.cognitoInfo?.userId || '', {
-    skip: !user?.cognitoInfo?.userId,
+  const { data: tenant } = useGetTenantQuery(user.cognitoInfo.userId || '', {
+    skip: !user.cognitoInfo.userId,
   })
 
   const [addFavorite] = useAddFavoritePropertyMutation()

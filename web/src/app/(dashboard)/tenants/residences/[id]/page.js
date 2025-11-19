@@ -78,8 +78,8 @@ const ResidencePage = () => {
   const { data: user } = useGetAuthUserQuery()
   const { data: property, isLoading: propertyLoading, error: propertyError } = useGetPropertyQuery(Number(id))
 
-  const { data: leases, isLoading: leasesLoading } = useGetLeasesQuery(parseInt(user?.cognitoInfo?.userId || '0'), {
-    skip: !user?.cognitoInfo?.userId,
+  const { data: leases, isLoading: leasesLoading } = useGetLeasesQuery(parseInt(user.cognitoInfo.userId || '0'), {
+    skip: !user.cognitoInfo.userId,
   })
 
   if (propertyLoading || leasesLoading) return <AppPageLoading />

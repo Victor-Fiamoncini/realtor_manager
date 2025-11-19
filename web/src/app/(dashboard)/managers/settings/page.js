@@ -21,7 +21,9 @@ const SettingsPage = () => {
   }, [user])
 
   const handleSubmit = async (data) => {
-    if (!user?.cognitoInfo) return
+    if (!user.cognitoInfo) {
+      throw new Error('User not authenticated')
+    }
 
     await updateManager({ cognitoId: user.cognitoInfo.userId, ...data })
   }
