@@ -31,6 +31,12 @@ const AppNavbar = () => {
   const userRole = user?.userRole?.toLowerCase() || null
   const isDashboardPage = pathname.includes('/managers') || pathname.includes('/tenants')
 
+  const handleSignOut = async () => {
+    await signOut()
+
+    window.location.href = '/signin'
+  }
+
   return (
     <header className="fixed top-0 left-0 z-50 block w-full shadow-xl" style={{ height: `${NAVBAR_HEIGHT}px` }}>
       <div className="bg-primary flex h-full w-full items-center justify-between px-8 py-3 text-white">
@@ -89,7 +95,7 @@ const AppNavbar = () => {
                 Settings
               </DropdownMenuItem>
 
-              <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()} title="Sign out">
+              <DropdownMenuItem className="cursor-pointer" onClick={handleSignOut} title="Sign out">
                 Sign out
               </DropdownMenuItem>
             </DropdownMenuContent>
