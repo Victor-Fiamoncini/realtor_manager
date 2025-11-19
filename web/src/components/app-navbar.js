@@ -31,7 +31,7 @@ const AppNavbar = () => {
   const handleSignOut = async () => {
     await signOut()
 
-    window.location.href = '/'
+    window.location.href = '/landing'
   }
 
   const userRole = user?.userRole?.toLowerCase() || null
@@ -47,8 +47,9 @@ const AppNavbar = () => {
         )}
 
         <div className="flex items-center gap-6">
-          <Link className="flex cursor-pointer items-center gap-4 text-xl font-bold" href="/" scroll={false}>
+          <Link className="flex cursor-pointer items-center gap-4 text-xl font-bold" href="/landing" scroll={false}>
             <Image src="/logo.png" alt="Realtor Manager Logo" width={40} height={40} />
+
             {isMobile ? 'RM' : 'Realtor Manager'}
           </Link>
         </div>
@@ -58,6 +59,7 @@ const AppNavbar = () => {
             <DropdownMenuTrigger className="flex cursor-pointer items-center gap-2">
               <Avatar>
                 <AvatarImage src={user.userInfo?.image} />
+
                 <AvatarFallback className="text-primary">{userRole[0].toUpperCase()}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
