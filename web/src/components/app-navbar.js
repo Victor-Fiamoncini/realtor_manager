@@ -28,12 +28,6 @@ const AppNavbar = () => {
 
   const isMobile = useIsMobile()
 
-  const handleSignOut = async () => {
-    await signOut()
-
-    window.location.href = '/landing'
-  }
-
   const userRole = user?.userRole?.toLowerCase() || null
   const isDashboardPage = pathname.includes('/managers') || pathname.includes('/tenants')
 
@@ -95,7 +89,7 @@ const AppNavbar = () => {
                 Settings
               </DropdownMenuItem>
 
-              <DropdownMenuItem className="cursor-pointer" onClick={() => handleSignOut()} title="Sign out">
+              <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()} title="Sign out">
                 Sign out
               </DropdownMenuItem>
             </DropdownMenuContent>
