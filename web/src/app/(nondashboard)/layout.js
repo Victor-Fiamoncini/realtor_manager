@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import AppNavbar from '@/components/app-navbar'
 import { NAVBAR_HEIGHT } from '@/lib/constants'
