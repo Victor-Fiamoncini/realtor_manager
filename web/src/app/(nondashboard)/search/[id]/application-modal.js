@@ -6,7 +6,7 @@ import { CustomFormField } from '@/components/app-form-field'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Form } from '@/components/ui/form'
-import { ApplicationFormData, applicationSchema } from '@/lib/schemas'
+import { applicationSchema } from '@/lib/schemas'
 import { useCreateApplicationMutation, useGetAuthUserQuery } from '@/state/api'
 
 const ApplicationModal = ({ isOpen, onClose, propertyId }) => {
@@ -14,24 +14,19 @@ const ApplicationModal = ({ isOpen, onClose, propertyId }) => {
 
   const { data: user } = useGetAuthUserQuery()
 
-  const form =
-    useForm <
-    ApplicationFormData >
-    {
-      resolver: zodResolver(applicationSchema),
-      defaultValues: {
-        name: '',
-        email: '',
-        phoneNumber: '',
-        message: '',
-      },
-    }
+  const form = useForm({
+    resolver: zodResolver(applicationSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phoneNumber: '',
+      message: '',
+    },
+  })
 
   const handleFormSubmit = async (data) => {
     if (!user || user.userRole !== 'tenant') {
-      console.error('You must be logged in as a tenant to submit an application')
-
-      return
+      throw new Error('You must be logged in as a tenant to submit an application')
     }
 
     await createApplication({
