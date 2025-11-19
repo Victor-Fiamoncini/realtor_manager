@@ -27,13 +27,7 @@ const PropertiesPage = () => {
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {managerProperties?.map((property) => (
-          <Card
-            key={property.id}
-            property={property}
-            isFavorite={false}
-            onFavoriteToggle={() => {}}
-            showFavoriteButton={false}
-          />
+          <Card key={property.id} property={property} isFavorite={false} showFavoriteButton={false} />
         ))}
       </div>
 

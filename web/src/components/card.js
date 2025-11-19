@@ -32,7 +32,7 @@ const Card = ({ property, isFavorite, onFavoriteToggle, showFavoriteButton = tru
           )}
         </div>
 
-        {showFavoriteButton && (
+        {showFavoriteButton && onFavoriteToggle && (
           <button
             className="absolute right-4 bottom-4 cursor-pointer rounded-full bg-white p-2 hover:bg-white/90"
             title="Toggle Favorite"
