@@ -50,13 +50,21 @@ const ApplicationsPage = () => {
 
       <Tabs className="my-5 w-full" value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="all">All</TabsTrigger>
+          <TabsTrigger className="cursor-pointer" value="all">
+            All
+          </TabsTrigger>
 
-          <TabsTrigger value="pending">Pending</TabsTrigger>
+          <TabsTrigger className="cursor-pointer" value="pending">
+            Pending
+          </TabsTrigger>
 
-          <TabsTrigger value="approved">Approved</TabsTrigger>
+          <TabsTrigger className="cursor-pointer" value="approved">
+            Approved
+          </TabsTrigger>
 
-          <TabsTrigger value="denied">Denied</TabsTrigger>
+          <TabsTrigger className="cursor-pointer" value="denied">
+            Denied
+          </TabsTrigger>
         </TabsList>
 
         {['all', 'pending', 'approved', 'denied'].map((tab) => (
@@ -102,49 +110,35 @@ const ApplicationsPage = () => {
                       </div>
                     </div>
 
-                    <div className="flex gap-2">
-                      <Link
-                        className="flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700"
-                        href={`/managers/properties/${application.property.id}`}
-                        scroll={false}
-                      >
-                        <Hospital className="mr-2 h-5 w-5" />
-                        Property Details
-                      </Link>
+                    {application.status !== 'Approved' && (
+                      <div className="flex gap-2">
+                        {application.status === 'Pending' && (
+                          <>
+                            <button
+                              className="cursor-pointer rounded bg-green-600 px-4 py-2 text-sm text-white hover:bg-green-500"
+                              title="Approve"
+                              onClick={() => handleStatusChange(application.id, 'Approved')}
+                            >
+                              Approve
+                            </button>
 
-                      {application.status === 'Approved' && (
-                        <button className="flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700">
-                          <Download className="mr-2 h-5 w-5" />
-                          Download Agreement
-                        </button>
-                      )}
+                            <button
+                              className="cursor-pointer rounded bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-500"
+                              title="Deny"
+                              onClick={() => handleStatusChange(application.id, 'Denied')}
+                            >
+                              Deny
+                            </button>
+                          </>
+                        )}
 
-                      {application.status === 'Pending' && (
-                        <>
-                          <button
-                            className="cursor-pointer rounded bg-green-600 px-4 py-2 text-sm text-white hover:bg-green-500"
-                            title="Approve"
-                            onClick={() => handleStatusChange(application.id, 'Approved')}
-                          >
-                            Approve
+                        {application.status === 'Denied' && (
+                          <button className="flex items-center justify-center rounded-md bg-gray-800 px-4 py-2 text-white">
+                            Contact User
                           </button>
-
-                          <button
-                            className="cursor-pointer rounded bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-500"
-                            title="Deny"
-                            onClick={() => handleStatusChange(application.id, 'Denied')}
-                          >
-                            Deny
-                          </button>
-                        </>
-                      )}
-
-                      {application.status === 'Denied' && (
-                        <button className="flex items-center justify-center rounded-md bg-gray-800 px-4 py-2 text-white">
-                          Contact User
-                        </button>
-                      )}
-                    </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </AppApplicationCard>
               ))}
