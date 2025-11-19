@@ -2,7 +2,7 @@
 
 import { Authenticator } from '@aws-amplify/ui-react'
 
-import AuthProvider from '@/app/(auth)/auth-provider'
+import AuthProvider from '@/providers/auth-provider'
 import StoreProvider from '@/state/redux'
 
 const Providers = ({ children }) => (
