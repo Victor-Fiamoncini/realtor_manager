@@ -1,6 +1,6 @@
 'use client'
 
-import { Download, MapPin, User } from 'lucide-react'
+import { MapPin } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import React from 'react'
 
