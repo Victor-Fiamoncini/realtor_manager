@@ -23,11 +23,14 @@ const DashboardLayout = ({ children }) => {
 
     const userRole = user.userRole?.toLowerCase()
 
-    if (
-      (userRole === 'manager' && pathname.includes('/tenants')) ||
-      (userRole === 'tenant' && pathname.includes('/managers'))
-    ) {
-      router.push(userRole === 'manager' ? '/managers/properties' : '/tenants/favorites', { scroll: false })
+    if (userRole === 'manager' && pathname.includes('/tenants')) {
+      router.push('/managers/properties', { scroll: false })
+
+      return
+    }
+
+    if (userRole === 'tenant' && pathname.includes('/managers')) {
+      router.push('/tenants/favorites', { scroll: false })
 
       return
     }
