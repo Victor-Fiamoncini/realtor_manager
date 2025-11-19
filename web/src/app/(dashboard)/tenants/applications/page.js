@@ -15,7 +15,7 @@ const ApplicationsPage = () => {
     isLoading,
     isError,
   } = useGetApplicationsQuery({
-    userId: user?.cognitoInfo?.userId,
+    userId: user.cognitoInfo.userId,
     userType: 'tenant',
   })
 
@@ -34,7 +34,7 @@ const ApplicationsPage = () => {
               {application.status === 'Approved' ? (
                 <div className="flex grow items-center bg-green-100 p-4 text-green-700">
                   <CircleCheckBig className="mr-2 h-5 w-5" />
-                  The property is being rented by you until {new Date(application.lease?.endDate).toLocaleDateString()}
+                  The property is being rented by you until {new Date(application.lease.endDate).toLocaleDateString()}
                 </div>
               ) : application.status === 'Pending' ? (
                 <div className="flex grow items-center bg-yellow-100 p-4 text-yellow-700">
@@ -51,6 +51,8 @@ const ApplicationsPage = () => {
           </AppApplicationCard>
         ))}
       </div>
+
+      {(!applications || applications?.length === 0) && <p>You don&lsquo;t have any applications</p>}
     </div>
   )
 }
