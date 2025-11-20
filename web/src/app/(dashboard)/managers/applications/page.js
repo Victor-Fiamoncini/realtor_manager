@@ -1,7 +1,6 @@
 'use client'
 
-import { CircleCheckBig, Download, File, Hospital } from 'lucide-react'
-import Link from 'next/link'
+import { CircleCheckBig, File } from 'lucide-react'
 import React, { useState } from 'react'
 
 import AppApplicationCard from '@/components/app-application-card'
@@ -48,103 +47,107 @@ const ApplicationsPage = () => {
     <div className="dashboard-container">
       <AppDashboardHeader title="Applications" subtitle="View and manage applications for your properties" />
 
-      <Tabs className="my-5 w-full" value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger className="cursor-pointer" value="all">
-            All
-          </TabsTrigger>
+      {applications?.length === 0 ? (
+        <p>You don&lsquo;t have any applications</p>
+      ) : (
+        <Tabs className="my-5 w-full" value={activeTab} onValueChange={setActiveTab}>
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger className="cursor-pointer" value="all">
+              All
+            </TabsTrigger>
 
-          <TabsTrigger className="cursor-pointer" value="pending">
-            Pending
-          </TabsTrigger>
+            <TabsTrigger className="cursor-pointer" value="pending">
+              Pending
+            </TabsTrigger>
 
-          <TabsTrigger className="cursor-pointer" value="approved">
-            Approved
-          </TabsTrigger>
+            <TabsTrigger className="cursor-pointer" value="approved">
+              Approved
+            </TabsTrigger>
 
-          <TabsTrigger className="cursor-pointer" value="denied">
-            Denied
-          </TabsTrigger>
-        </TabsList>
+            <TabsTrigger className="cursor-pointer" value="denied">
+              Denied
+            </TabsTrigger>
+          </TabsList>
 
-        {['all', 'pending', 'approved', 'denied'].map((tab) => (
-          <TabsContent key={tab} className="mt-5 w-full" value={tab}>
-            {filteredApplications
-              .filter((application) => tab === 'all' || application.status.toLowerCase() === tab)
-              .map((application) => (
-                <AppApplicationCard key={application.id} application={application} userType="manager">
-                  <div className="flex w-full justify-between gap-5 px-4 pb-4">
-                    <div
-                      className={`grow p-4 text-green-700 ${
-                        application.status === 'Approved'
-                          ? 'bg-green-100'
-                          : application.status === 'Denied'
-                            ? 'bg-red-100'
-                            : 'bg-yellow-100'
-                      }`}
-                    >
-                      <div className="flex flex-wrap items-center">
-                        <File className="mr-2 h-5 w-5 shrink-0" />
+          {['all', 'pending', 'approved', 'denied'].map((tab) => (
+            <TabsContent key={tab} className="mt-5 w-full" value={tab}>
+              {filteredApplications
+                .filter((application) => tab === 'all' || application.status.toLowerCase() === tab)
+                .map((application) => (
+                  <AppApplicationCard key={application.id} application={application} userType="manager">
+                    <div className="flex w-full justify-between gap-5 px-4 pb-4">
+                      <div
+                        className={`grow p-4 text-green-700 ${
+                          application.status === 'Approved'
+                            ? 'bg-green-100'
+                            : application.status === 'Denied'
+                              ? 'bg-red-100'
+                              : 'bg-yellow-100'
+                        }`}
+                      >
+                        <div className="flex flex-wrap items-center">
+                          <File className="mr-2 h-5 w-5 shrink-0" />
 
-                        <span className="mr-2">
-                          Application submitted on {new Date(application.applicationDate).toLocaleDateString()}.
-                        </span>
+                          <span className="mr-2">
+                            Application submitted on {new Date(application.applicationDate).toLocaleDateString()}.
+                          </span>
 
-                        <CircleCheckBig className="mr-2 h-5 w-5 shrink-0" />
+                          <CircleCheckBig className="mr-2 h-5 w-5 shrink-0" />
 
-                        <span
-                          className={`font-semibold ${
-                            application.status === 'Approved'
-                              ? 'text-green-800'
-                              : application.status === 'Denied'
-                                ? 'text-red-800'
-                                : 'text-yellow-800'
-                          }`}
-                        >
-                          {application.status === 'Approved' && 'This application has been approved.'}
+                          <span
+                            className={`font-semibold ${
+                              application.status === 'Approved'
+                                ? 'text-green-800'
+                                : application.status === 'Denied'
+                                  ? 'text-red-800'
+                                  : 'text-yellow-800'
+                            }`}
+                          >
+                            {application.status === 'Approved' && 'This application has been approved.'}
 
-                          {application.status === 'Denied' && 'This application has been denied.'}
+                            {application.status === 'Denied' && 'This application has been denied.'}
 
-                          {application.status === 'Pending' && 'This application is pending review.'}
-                        </span>
+                            {application.status === 'Pending' && 'This application is pending review.'}
+                          </span>
+                        </div>
                       </div>
+
+                      {application.status !== 'Approved' && (
+                        <div className="flex gap-2">
+                          {application.status === 'Pending' && (
+                            <>
+                              <button
+                                className="cursor-pointer rounded bg-green-600 px-4 py-2 text-sm text-white hover:bg-green-500"
+                                title="Approve"
+                                onClick={() => handleStatusChange(application.id, 'Approved')}
+                              >
+                                Approve
+                              </button>
+
+                              <button
+                                className="cursor-pointer rounded bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-500"
+                                title="Deny"
+                                onClick={() => handleStatusChange(application.id, 'Denied')}
+                              >
+                                Deny
+                              </button>
+                            </>
+                          )}
+
+                          {application.status === 'Denied' && (
+                            <button className="flex items-center justify-center rounded-md bg-gray-800 px-4 py-2 text-white">
+                              Contact User
+                            </button>
+                          )}
+                        </div>
+                      )}
                     </div>
-
-                    {application.status !== 'Approved' && (
-                      <div className="flex gap-2">
-                        {application.status === 'Pending' && (
-                          <>
-                            <button
-                              className="cursor-pointer rounded bg-green-600 px-4 py-2 text-sm text-white hover:bg-green-500"
-                              title="Approve"
-                              onClick={() => handleStatusChange(application.id, 'Approved')}
-                            >
-                              Approve
-                            </button>
-
-                            <button
-                              className="cursor-pointer rounded bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-500"
-                              title="Deny"
-                              onClick={() => handleStatusChange(application.id, 'Denied')}
-                            >
-                              Deny
-                            </button>
-                          </>
-                        )}
-
-                        {application.status === 'Denied' && (
-                          <button className="flex items-center justify-center rounded-md bg-gray-800 px-4 py-2 text-white">
-                            Contact User
-                          </button>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </AppApplicationCard>
-              ))}
-          </TabsContent>
-        ))}
-      </Tabs>
+                  </AppApplicationCard>
+                ))}
+            </TabsContent>
+          ))}
+        </Tabs>
+      )}
     </div>
   )
 }

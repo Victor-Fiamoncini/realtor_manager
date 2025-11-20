@@ -28,6 +28,7 @@ const AppSettingsForm = ({ initialData, onSubmit, userType }) => {
     <div className="px-8 pt-8 pb-5">
       <div className="mb-5">
         <h1 className="text-xl font-semibold">{`${userType.charAt(0).toUpperCase() + userType.slice(1)} Settings`}</h1>
+
         <p className="mt-1 text-sm text-gray-500">Manage your account preferences and personal information</p>
       </div>
 
