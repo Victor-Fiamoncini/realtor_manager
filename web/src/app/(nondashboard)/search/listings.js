@@ -25,7 +25,9 @@ const Listings = () => {
   const { data: properties, isLoading, isError } = useGetPropertiesQuery(filters)
 
   const handleFavoriteToggle = async (propertyId) => {
-    if (!user) return
+    if (!user) throw new Error('User must be logged in to favorite a property')
+
+    if (user.userRole !== 'tenant') throw new Error('Only tenants can favorite properties')
 
     const isFavorite = Array.isArray(tenant?.favorites)
       ? tenant.favorites.some((favorite) => favorite.id === propertyId)
@@ -64,7 +66,7 @@ const Listings = () => {
                         : false
                     }
                     onFavoriteToggle={() => handleFavoriteToggle(property.id)}
-                    showFavoriteButton={!!user}
+                    showFavoriteButton={user && user.userRole === 'tenant'}
                     propertyLink={`/search/${property.id}`}
                   />
                 ) : (
@@ -77,7 +79,7 @@ const Listings = () => {
                         : false
                     }
                     onFavoriteToggle={() => handleFavoriteToggle(property.id)}
-                    showFavoriteButton={!!user}
+                    showFavoriteButton={user && user.userRole === 'tenant'}
                     propertyLink={`/search/${property.id}`}
                   />
                 )
