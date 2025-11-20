@@ -43,7 +43,11 @@ const CardCompact = ({ property, isFavorite, onFavoriteToggle, showFavoriteButto
             </h2>
 
             {showFavoriteButton && (
-              <button className="rounded-full bg-white p-1" title="Toggle Favorite" onClick={onFavoriteToggle}>
+              <button
+                className="cursor-pointer rounded-full bg-white p-1"
+                title="Toggle Favorite"
+                onClick={onFavoriteToggle}
+              >
                 <Heart className={`h-4 w-4 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} />
               </button>
             )}

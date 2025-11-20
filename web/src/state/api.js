@@ -140,7 +140,7 @@ export const api = createApi({
       ],
       async onQueryStarted(_, { queryFulfilled }) {
         await withToast(queryFulfilled, {
-          success: 'Added to favorites!!',
+          success: 'Added to favorites!',
           error: 'Failed to add to favorites',
         })
       },
