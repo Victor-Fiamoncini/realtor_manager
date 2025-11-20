@@ -75,7 +75,7 @@ const ApplicationsPage = () => {
                 .filter((application) => tab === 'all' || application.status.toLowerCase() === tab)
                 .map((application) => (
                   <AppApplicationCard key={application.id} application={application} userType="manager">
-                    <div className="flex w-full justify-between gap-5 px-4 pb-4">
+                    <div className="flex w-full justify-between px-4 pb-4">
                       <div
                         className={`grow p-4 text-green-700 ${
                           application.status === 'Approved'
@@ -117,7 +117,7 @@ const ApplicationsPage = () => {
                           {application.status === 'Pending' && (
                             <>
                               <button
-                                className="cursor-pointer rounded bg-green-600 px-4 py-2 text-sm text-white hover:bg-green-500"
+                                className="cursor-pointer rounded bg-green-600 px-4 py-2 text-sm text-white transition-colors hover:bg-green-500"
                                 title="Approve"
                                 onClick={() => handleStatusChange(application.id, 'Approved')}
                               >
@@ -125,19 +125,13 @@ const ApplicationsPage = () => {
                               </button>
 
                               <button
-                                className="cursor-pointer rounded bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-500"
+                                className="cursor-pointer rounded bg-red-600 px-4 py-2 text-sm text-white transition-colors hover:bg-red-500"
                                 title="Deny"
                                 onClick={() => handleStatusChange(application.id, 'Denied')}
                               >
                                 Deny
                               </button>
                             </>
-                          )}
-
-                          {application.status === 'Denied' && (
-                            <button className="flex items-center justify-center rounded-md bg-gray-800 px-4 py-2 text-white">
-                              Contact User
-                            </button>
                           )}
                         </div>
                       )}
