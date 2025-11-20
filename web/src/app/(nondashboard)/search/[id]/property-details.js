@@ -60,16 +60,22 @@ const PropertyDetails = ({ propertyId }) => {
           The fees below are based on community-supplied data and may exclude additional fees and utilities.
         </p>
 
-        <Tabs defaultValue="required-fees" className="mt-8">
+        <Tabs className="mt-8" defaultValue="required-fees">
           <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="required-fees">Required Fees</TabsTrigger>
+            <TabsTrigger className="cursor-pointer" value="required-fees">
+              Required Fees
+            </TabsTrigger>
 
-            <TabsTrigger value="pets">Pets</TabsTrigger>
+            <TabsTrigger className="cursor-pointer" value="pets">
+              Pets
+            </TabsTrigger>
 
-            <TabsTrigger value="parking">Parking</TabsTrigger>
+            <TabsTrigger className="cursor-pointer" value="parking">
+              Parking
+            </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="required-fees" className="w-1/3">
+          <TabsContent className="w-1/3" value="required-fees">
             <p className="mt-5 mb-2 font-semibold">One time move in fees</p>
 
             <hr />
