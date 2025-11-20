@@ -33,14 +33,7 @@ const FavoritesPage = () => {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {favoriteProperties &&
           favoriteProperties.map((property) => (
-            <Card
-              key={property.id}
-              property={property}
-              isFavorite={true}
-              onFavoriteToggle={() => {}}
-              showFavoriteButton={false}
-              propertyLink={`/tenants/residences/${property.id}`}
-            />
+            <Card key={property.id} property={property} isFavorite={true} showFavoriteButton={false} />
           ))}
       </div>
 
