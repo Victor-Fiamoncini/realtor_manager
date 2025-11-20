@@ -34,7 +34,7 @@ const CardCompact = ({ property, isFavorite, onFavoriteToggle, showFavoriteButto
           <div className="flex items-start justify-between">
             <h2 className="mb-1 text-xl font-bold">
               {propertyLink ? (
-                <Link className="hover:text-blue-600 hover:underline" href={propertyLink} scroll={false}>
+                <Link className="hover:underline" href={propertyLink} scroll={false}>
                   {property.name}
                 </Link>
               ) : (
