@@ -13,6 +13,11 @@ export default defineConfig([
   tseslint.configs.recommended,
   {
     rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-unnecessary-type-constraint': 'off',
+      '@typescript-eslint/no-wrapper-object-types': 'off',
+      '@typescript-eslint/no-unsafe-function': 'off',
       '@typescript-eslint/no-namespace': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
     },
