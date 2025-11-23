@@ -16,7 +16,6 @@ function toCamelCase(str: string): string {
   return str.charAt(0).toLowerCase() + str.slice(1)
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function insertLocationData(locations: any[]) {
   for (const location of locations) {
     const { id, country, city, state, address, postalCode, coordinates } = location
@@ -37,7 +36,6 @@ async function insertLocationData(locations: any[]) {
 async function resetSequence(modelName: string) {
   const quotedModelName = `"${toPascalCase(modelName)}"`
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const maxIdResult = await (prisma[modelName as keyof PrismaClient] as any).findMany({
     select: { id: true },
     orderBy: { id: 'desc' },
@@ -64,7 +62,6 @@ async function deleteAllData(orderedFileNames: string[]) {
 
   for (const modelName of modelNames.reverse()) {
     const modelNameCamel = toCamelCase(modelName)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const model = (prisma as any)[modelNameCamel]
 
     if (!model) {
@@ -107,7 +104,6 @@ async function main() {
     if (modelName === 'Location') {
       await insertLocationData(jsonData)
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const model = (prisma as any)[modelNameCamel]
 
       try {
