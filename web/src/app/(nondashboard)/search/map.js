@@ -49,7 +49,7 @@ const Map = () => {
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: 'mapbox://styles/victorfiamon/cmhjmxqss002301s60r60fpzp',
+      style: 'mapbox://styles/victorfiamon/cmi98zjat006s01qm7983dfn0',
       center: filters.coordinates || [-74.5, 40],
       zoom: 9,
     })
